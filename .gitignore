@@ -19,3 +19,4 @@ data.db-*
 tools/verify/node_modules
 tools/verify/out
 .DS_Store
+tools/local/media.json

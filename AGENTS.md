@@ -38,6 +38,8 @@ It applies the seed and signs you in as a development administrator.
 | `src/pages/` | Routes: `/`, `/[slug]`, `/blog`, `/blog/page/[page]`, `/blog/category/[slug]`, `/blog/[slug]`, `/rss.xml`, `/sitemap.xml`, `404` |
 | `src/styles/` | Plain CSS, imported by the component that needs it so each page gets only its own styles |
 | `tools/verify/` | Verification tooling with its own `package.json` (never installed by Cloudflare builds) |
+| `tools/local/` | Local helpers: screenshots, layout-shift tracing, seed generator, placeholder image upload, switch tests |
+| `HANDOVER.md` | State of the project, what was rejected (the visual design) and everything learned about the platform. Read it first |
 | `.agents/skills/` | EmDash's own skills for AI assistants (copied from the official templates). Read `building-emdash-site` before touching content queries or the seed |
 
 EmDash documentation: https://docs.emdashcms.com (also available as an MCP server, see `.mcp.json`).
