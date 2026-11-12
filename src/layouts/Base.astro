@@ -51,7 +51,7 @@ const page = createPublicPageContext({
 	canonical: canonical ?? absoluteUrl(site, path),
 	image,
 	content,
-	seo: robots ? { robots } : undefined,
+	seo: robots || site.staging ? { robots: site.staging ? "noindex, nofollow" : robots } : undefined,
 	articleMeta: article,
 	siteUrl: site.url,
 });

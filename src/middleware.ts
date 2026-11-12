@@ -8,7 +8,8 @@
  *   1. an "X-Robots-Tag: noindex, nofollow" response header on every public response, and
  *   2. a robots.txt that says "Disallow: /".
  *
- * Choosing "Go live" in the admin reverses all three at once.
+ * Choosing "Go live" in the admin reverses all three at once. Until then (including
+ * before first-time setup has been completed) the site stays hidden.
  */
 import { defineMiddleware } from "astro:middleware";
 import { getSiteSettings } from "emdash";
@@ -18,9 +19,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 	// The admin and its API look after themselves.
 	if (pathname.startsWith("/_emdash")) return next();
 
-	// If the settings cannot be read (for example before first-time setup), stay hidden.
+	// Hidden unless the site has explicitly been switched to live. That also covers the
+	// moments before first-time setup is finished, when the setting does not exist yet.
 	const staging = await getSiteSettings()
-		.then((settings) => settings.staging === true)
+		.then((settings) => settings.staging !== false)
 		.catch(() => true);
 	if (!staging) return next();
 

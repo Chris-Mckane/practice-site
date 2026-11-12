@@ -85,7 +85,7 @@ async function loadSite(Astro: AstroGlobal): Promise<Site> {
 		titleSeparator: text(s.seo?.titleSeparator) || "|",
 		timezone: text(s.timezone) || "Europe/London",
 		postsPerPage: Number(s.postsPerPage) > 0 ? Number(s.postsPerPage) : 10,
-		staging: s.staging === true,
+		staging: s.staging !== false,
 		mode,
 		status: text(o[`status_${mode}`]),
 		cta: ctaLabel && ctaUrl && ctaUrl !== "#" ? { label: ctaLabel, url: ctaUrl } : null,

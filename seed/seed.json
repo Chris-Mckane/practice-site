@@ -873,11 +873,11 @@
 					"social_profiles": [
 						{
 							"label": "LinkedIn",
-							"url": "https://www.linkedin.com/"
+							"url": "https://example.com/replace-with-your-linkedin-profile"
 						},
 						{
 							"label": "GitHub",
-							"url": "https://github.com/"
+							"url": "https://example.com/replace-with-your-github-profile"
 						}
 					],
 					"footer_note": "[Placeholder footer note] Lorem ipsum dolor sit amet."
