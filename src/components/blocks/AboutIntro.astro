@@ -5,10 +5,10 @@ import { href } from "../../lib/format";
 import Photo from "../Photo.astro";
 import Prose from "../Prose.astro";
 
-type Props = BlockProps;
+type Props = BlockProps<"about_intro">;
 
 const { value } = Astro.props;
-const image = value.image as { id: string; alt?: string } | undefined;
+const image = value.image;
 const hasImage = Boolean(image?.alt?.trim());
 const linkUrl = href(value.link_url);
 const linkLabel = str(value.link_label);
@@ -20,9 +20,9 @@ const linkLabel = str(value.link_label);
 			<h2 class="h-section">{str(value.heading)}</h2>
 		</div>
 		<div class:list={["about-intro", { "about-intro--media": hasImage }]}>
-			<Photo image={image} class="photo--portrait" sizes="(min-width: 40rem) 14rem, 22rem" />
+			<Photo image={image} class="photo--portrait" width={352} sizes="(min-width: 40rem) 14rem, 22rem" />
 			<div class="section__body">
-				<Prose value={value.body as never} shift />
+				<Prose value={value.body} shift />
 				{
 					linkUrl && linkLabel && (
 						<p>

@@ -3,8 +3,7 @@
  * A single blog post: breadcrumbs, H1, byline with author link, published and updated
  * dates, reading time, optional featured image, body, author box and related posts.
  */
-import "../../styles/blog.css";
-import "../../styles/sections.css";
+import "../../styles/post.css";
 import { decodeSlug, getEmDashCollection, getEmDashEntry } from "emdash";
 import AuthorBox from "../../components/AuthorBox.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
@@ -91,8 +90,8 @@ const jsonld = [
 	<article>
 		<header class="post__header wrap">
 			<Breadcrumbs crumbs={crumbs} />
-			<h1 class="h-page" {...post.edit.title}>{post.data.title}</h1>
-			{post.data.excerpt && <p class="lead" {...post.edit.excerpt}>{post.data.excerpt}</p>}
+			<h1 class="h-page">{post.data.title}</h1>
+			{post.data.excerpt && <p class="lead">{post.data.excerpt}</p>}
 		</header>
 		<div class="section">
 			<div class="wrap section__grid">
@@ -115,10 +114,8 @@ const jsonld = [
 					<li>{minutes} min read</li>
 				</ul>
 				<div>
-					<Photo image={image} class="post__image" sizes="(min-width: 58rem) 60vw, 92vw" priority />
-					<div {...post.edit.content}>
-						<Prose value={post.data.content} />
-					</div>
+					<Photo image={image} class="post__image" width={800} sizes="(min-width: 74rem) 46rem, (min-width: 58rem) 62vw, 92vw" priority />
+					<Prose value={post.data.content} />
 					<AuthorBox name={authorName} bio={post.data.byline?.bio} />
 				</div>
 			</div>

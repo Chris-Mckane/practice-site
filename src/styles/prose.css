@@ -5,27 +5,27 @@
 }
 
 .prose > * + * {
-	margin-block-start: 1.1em;
+	margin-top: 1.1em;
 }
 
 .prose h2 {
-	margin-block-start: 1.8em;
+	margin-top: 1.8em;
 	font-size: var(--step-2);
 }
 
 .prose h3 {
-	margin-block-start: 1.6em;
+	margin-top: 1.6em;
 	font-size: var(--step-1);
 	line-height: 1.2;
 }
 
 .prose ul,
 .prose ol {
-	padding-inline-start: 1.3em;
+	padding-left: 1.3em;
 }
 
 .prose li + li {
-	margin-block-start: 0.4em;
+	margin-top: 0.4em;
 }
 
 .prose li::marker {
@@ -60,4 +60,30 @@
 
 .prose img {
 	border-radius: 0.75rem;
+}
+
+.prose figure {
+	margin-block: 1.6em;
+}
+
+.prose figcaption {
+	margin-top: 0.5em;
+	color: var(--muted);
+	font-size: var(--step--1);
+}
+
+.prose .emdash-table-wrapper {
+	overflow-x: auto;
+}
+
+.prose table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.prose :is(th, td) {
+	padding: 0.5em 1em 0.5em 0;
+	border-top: 1px solid var(--line);
+	text-align: start;
+	vertical-align: top;
 }

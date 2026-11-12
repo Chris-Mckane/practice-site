@@ -56,6 +56,10 @@ const page = createPublicPageContext({
 	siteUrl: site.url,
 });
 
+// Browsers re-check each page with the server instead of reusing an old copy. The check is
+// answered from Cloudflare's edge cache, so it is fast, and visitors never see stale pages.
+if (!Astro.response.headers.has("Cache-Control")) Astro.response.headers.set("Cache-Control", "no-cache");
+
 const structuredData = JSON.stringify(graph([websiteNode(site), personNode(site), ...jsonld])).replace(/</g, "\\u003c");
 ---
 

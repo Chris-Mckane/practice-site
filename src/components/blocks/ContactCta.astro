@@ -6,7 +6,7 @@
 import { str, type BlockProps } from "../../lib/blocks";
 import { getSite } from "../../lib/site";
 
-type Props = BlockProps;
+type Props = BlockProps<"contact_cta">;
 
 const { value } = Astro.props;
 const site = await getSite(Astro);
@@ -39,7 +39,7 @@ const cta = site.cta && site.cta.url !== `/#${id}` && site.cta.url !== `#${id}` 
 						<ul>
 							{site.social.map((profile) => (
 								<li>
-									<a href={profile.url} rel="me noopener">
+									<a class="link" href={profile.url} rel="me noopener">
 										{profile.label}
 									</a>
 								</li>

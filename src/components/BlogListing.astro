@@ -6,10 +6,10 @@
  * The heading, introduction and SEO fields of the main index come from the page
  * with the slug "blog" in the Pages collection, so they are editable in the admin.
  */
-import "../styles/sections.css";
+import "../styles/listing.css";
 import { getEmDashCollection, getEmDashEntry, getTaxonomyTermsWithCacheHint } from "emdash";
 import Base from "../layouts/Base.astro";
-import type { Block } from "../lib/blocks";
+import { findBlock, str, type Block } from "../lib/blocks";
 import { breadcrumbNode, websiteId, type Crumb } from "../lib/jsonld";
 import { entrySeo } from "../lib/seo";
 import { absoluteUrl, getSite } from "../lib/site";
@@ -50,12 +50,17 @@ if (Astro.cache?.enabled) {
 const base = term ? `/blog/category/${term.slug}` : "/blog";
 const pathFor = (n: number) => (n === 1 ? base : `${base}/page/${n}`);
 const path = pathFor(page);
-const blogSeo = blogPage.entry ? entrySeo(site, blogPage.entry, "/blog") : null;
+const blogBlocks: Block[] = blogPage.entry?.data.layout ?? [];
+const blogSeo = blogPage.entry
+	? entrySeo(site, blogPage.entry, "/blog", { description: str(findBlock(blogBlocks, "page_header")?.lead) })
+	: null;
 const blogTitle = blogSeo?.title ?? "Blog";
 const heading = term ? term.label : blogTitle;
 const title = page > 1 ? `${heading}, page ${page}` : heading;
 const isIndex = !term && page === 1;
-const blocks: Block[] = isIndex && Array.isArray(blogPage.entry?.data.layout) ? blogPage.entry.data.layout : [];
+const blocks = isIndex ? blogBlocks : [];
+// Category pages use the category's own description (Categories > edit a category in the admin).
+const description = term ? str(term.description) : blogSeo?.description;
 
 const crumbs: Crumb[] = [
 	{ label: "Home", path: "/" },
@@ -69,7 +74,7 @@ const categories = terms.data.filter((item) => (item.count ?? 1) > 0);
 
 <Base
 	title={title}
-	description={isIndex ? blogSeo?.description : null}
+	description={description}
 	path={path}
 	image={isIndex ? blogSeo?.image : null}
 	content={isIndex && blogPage.entry ? { collection: "pages", id: blogPage.entry.data.id, slug: "blog" } : undefined}
@@ -92,6 +97,7 @@ const categories = terms.data.filter((item) => (item.count ?? 1) > 0);
 			<header class="page-header wrap">
 				{crumbs.length > 2 && <Breadcrumbs crumbs={crumbs} />}
 				<h1 class="h-page">{title}</h1>
+				{term && description && <p class="lead muted">{description}</p>}
 			</header>
 		)
 	}
@@ -103,13 +109,17 @@ const categories = terms.data.filter((item) => (item.count ?? 1) > 0);
 						<nav aria-label="Blog categories">
 							<ul class="cats">
 								<li>
-									<a href="/blog" aria-current={!term ? "page" : undefined}>
+									<a class="link" href="/blog" aria-current={!term ? "page" : undefined}>
 										All posts
 									</a>
 								</li>
 								{categories.map((item) => (
 									<li>
-										<a href={`/blog/category/${item.slug}`} aria-current={item.slug === term?.slug ? "page" : undefined}>
+										<a
+											class="link"
+											href={`/blog/category/${item.slug}`}
+											aria-current={item.slug === term?.slug ? "page" : undefined}
+										>
 											{item.label}
 										</a>
 									</li>

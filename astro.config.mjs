@@ -20,6 +20,28 @@ const DAY = 86_400;
 const WEEK = 604_800;
 const cached = (/** @type {string[]} */ ...tags) => ({ maxAge: DAY, swr: WEEK, tags: [...tags, "all"] });
 
+/**
+ * EmDash's rich text renderer ships styles for every block the editor can insert
+ * (galleries, columns, embeds, buttons, cover images and so on): about 12 KB that would
+ * be inlined into every page whether used or not. This drops them at build time.
+ * Paragraphs, headings, lists, quotes, links, images, code and tables are styled by
+ * this site's own src/styles/prose.css instead.
+ *
+ * To use another block's built-in look (for example "Gallery"), add its component name
+ * to KEEP, or style it in src/styles/prose.css.
+ */
+const KEEP = ["Block"];
+const EMDASH_STYLE = /\/emdash\/src\/components\/(?:widgets\/)?(\w+)\.astro\?.*type=style/;
+const trimEmDashStyles = {
+	name: "trim-emdash-styles",
+	enforce: /** @type {const} */ ("pre"),
+	/** @param {string} _code @param {string} id */
+	transform(_code, id) {
+		const component = id.match(EMDASH_STYLE)?.[1];
+		if (component && !KEEP.includes(component)) return { code: "", map: null };
+	},
+};
+
 export default defineConfig({
 	output: "server",
 	adapter: cloudflare(),
@@ -28,10 +50,9 @@ export default defineConfig({
 	// Inline every stylesheet into the HTML: no render-blocking CSS request.
 	build: { inlineStylesheets: "always" },
 
-	image: {
-		layout: "constrained",
-		responsiveStyles: true,
-	},
+	image: { layout: "constrained" },
+
+	vite: { plugins: [trimEmDashStyles] },
 
 	// Edge caching of rendered HTML (Cloudflare "Workers Cache"). See GUIDE.md, "Caching".
 	cache: { provider: cacheCloudflare() },
@@ -53,9 +74,10 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto", coalesce: true }),
 			storage: r2({ binding: "MEDIA" }),
-			// Public HTML is identical for everyone, so it can be cached. Signed-in editors
-			// get a small "Edit" pill that loads a fresh, uncached editing view.
-			toolbar: "client",
+			// No on-page editing toolbar: it would add about 4 KB of JavaScript to every page
+			// for every visitor. Editing happens in the admin at /_emdash/admin. Public HTML is
+			// therefore identical for everyone, which is also what makes it safe to cache.
+			toolbar: false,
 			// Use system fonts in the admin instead of downloading Noto Sans from Google at build time.
 			fonts: false,
 		}),

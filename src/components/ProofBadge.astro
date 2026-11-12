@@ -39,8 +39,10 @@ const { methodologyLabel, methodologyUrl } = Astro.props;
 	</dl>
 	{
 		methodologyUrl && methodologyLabel && (
-			<p class="meta">
-				<a href={methodologyUrl}>{methodologyLabel}</a>
+			<p>
+				<a class="link" href={methodologyUrl}>
+					{methodologyLabel}
+				</a>
 			</p>
 		)
 	}

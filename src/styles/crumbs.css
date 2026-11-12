@@ -1,0 +1,20 @@
+/* Breadcrumb trail. */
+
+.crumbs ol {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	list-style: none;
+}
+
+.crumbs li {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+}
+
+.crumbs li + li::before {
+	content: "/";
+	margin-inline: 0.6em;
+	color: var(--muted);
+}

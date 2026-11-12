@@ -5,7 +5,7 @@ import { str, type BlockProps } from "../../lib/blocks";
 import { href } from "../../lib/format";
 import PostList from "../PostList.astro";
 
-type Props = BlockProps;
+type Props = BlockProps<"latest_posts">;
 
 const { value } = Astro.props;
 const count = Math.min(6, Math.max(1, Number(value.count) || 3));

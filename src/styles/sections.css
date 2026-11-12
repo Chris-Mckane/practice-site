@@ -24,7 +24,7 @@
 }
 
 .hero .lead {
-	margin-block-start: var(--space-m);
+	margin-top: var(--space-m);
 }
 
 .hero__actions {
@@ -32,7 +32,7 @@
 	flex-wrap: wrap;
 	align-items: center;
 	gap: var(--space-xs) var(--space-m);
-	margin-block-start: var(--space-m);
+	margin-top: var(--space-m);
 }
 
 /* Availability status: plain text with a small mint marker, deliberately not a badge. */
@@ -40,7 +40,7 @@
 	display: flex;
 	align-items: center;
 	gap: 0.6em;
-	margin-block-start: var(--space-s);
+	margin-top: var(--space-s);
 }
 
 .status::before {
@@ -59,20 +59,10 @@
 }
 
 .page-header .lead {
-	margin-block-start: var(--space-s);
+	margin-top: var(--space-s);
 }
 
 /* ---------- Media ---------- */
-
-.photo {
-	overflow: hidden;
-	border-radius: 0.75rem;
-	background: var(--surface);
-}
-
-.photo img {
-	width: 100%;
-}
 
 .photo--portrait {
 	aspect-ratio: 4 / 5;
@@ -85,7 +75,7 @@
 }
 
 .caption {
-	margin-block-start: var(--space-xs);
+	margin-top: var(--space-xs);
 }
 
 /* Neutral stand-in shown when a photo has not been added yet. */
@@ -119,7 +109,7 @@
 .principles {
 	display: grid;
 	gap: 0 var(--space-m);
-	margin-block-start: var(--space-m);
+	margin-top: var(--space-m);
 	padding: 0;
 	list-style: none;
 }
@@ -132,11 +122,11 @@
 
 .principles li {
 	padding-block: var(--space-s);
-	border-block-start: 1px solid var(--line);
+	border-top: 1px solid var(--line);
 }
 
 .principles p {
-	margin-block-start: 0.4em;
+	margin-top: 0.4em;
 	color: var(--muted);
 }
 
@@ -148,11 +138,11 @@
 }
 
 .routes li {
-	border-block-end: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
 }
 
 .routes li:first-child {
-	border-block-start: 1px solid var(--line);
+	border-top: 1px solid var(--line);
 }
 
 .route {
@@ -200,6 +190,10 @@
 
 /* ---------- Experience and credentials ---------- */
 
+.section__body > .flow:not(:empty) {
+	margin-bottom: var(--space-m);
+}
+
 .timeline {
 	padding: 0;
 	list-style: none;
@@ -207,11 +201,11 @@
 
 .timeline li {
 	padding-block: var(--space-s);
-	border-block-start: 1px solid var(--line);
+	border-top: 1px solid var(--line);
 }
 
 .timeline p {
-	margin-block-start: 0.4em;
+	margin-top: 0.4em;
 }
 
 .credentials {
@@ -227,7 +221,7 @@
 .credentials th,
 .credentials td {
 	padding: var(--space-s) var(--space-s) var(--space-s) 0;
-	border-block-start: 1px solid var(--line);
+	border-top: 1px solid var(--line);
 	text-align: start;
 	vertical-align: top;
 }
@@ -246,7 +240,7 @@
 
 .contact {
 	padding-block: var(--space-xl);
-	border-block-start: 1px solid var(--line);
+	border-top: 1px solid var(--line);
 }
 
 .contact .lead {
@@ -267,15 +261,6 @@
 	gap: 0 var(--space-s);
 	padding: 0;
 	list-style: none;
-}
-
-.contact__links li a {
-	display: inline-flex;
-	align-items: center;
-	min-height: 2.75rem;
-	font-family: var(--font-heading);
-	font-size: var(--step--1);
-	font-weight: 600;
 }
 
 @media (prefers-reduced-motion: reduce) {

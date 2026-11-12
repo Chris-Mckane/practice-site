@@ -1,14 +1,14 @@
 ---
 /** Signposts to the main destinations, optionally ending with the primary call to action. */
-import { rows, str, type BlockProps } from "../../lib/blocks";
+import { str, type BlockProps } from "../../lib/blocks";
 import { href, paragraphs } from "../../lib/format";
 import { getSite } from "../../lib/site";
 
-type Props = BlockProps;
+type Props = BlockProps<"route_links">;
 
 const { value } = Astro.props;
 const site = await getSite(Astro);
-const routes = rows(value.routes)
+const routes = (value.routes ?? [])
 	.map((item) => ({ label: str(item.label), text: str(item.description), url: href(item.url) }))
 	.filter((item) => item.label && item.url);
 if (value.include_primary_cta !== false && site.cta && !routes.some((item) => item.url === site.cta?.url)) {

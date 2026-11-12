@@ -6,10 +6,13 @@
  * Alt text is mandatory. EmDash has no "required alt" switch, so an image
  * without alt text is simply not shown (and the editor sees it is missing).
  */
+import type { ImageValue } from "emdash";
 import { Image } from "emdash/ui";
 
 interface Props {
-	image: { id: string; alt?: string } | null | undefined;
+	image: ImageValue | null | undefined;
+	/** The widest the image is ever displayed, in CSS pixels. Files up to twice this are offered for sharp screens. */
+	width: number;
 	/** CSS `sizes` hint: how wide the image is displayed at different screen widths. */
 	sizes: string;
 	/** True only for an image that is the largest thing in the first screen. */
@@ -17,14 +20,16 @@ interface Props {
 	class?: string;
 }
 
-const { image, sizes, priority = false, class: className } = Astro.props;
+const { image, width, sizes, priority = false, class: className } = Astro.props;
 const hasAlt = Boolean(image?.alt?.trim());
+// Keep the original aspect ratio so the browser can reserve the right space before the file arrives.
+const height = image?.width && image.height ? Math.round((width * image.height) / image.width) : undefined;
 ---
 
 {
 	image && hasAlt && (
 		<div class:list={["photo", className]}>
-			<Image image={image} sizes={sizes} priority={priority} formats={["avif", "webp"]} />
+			<Image image={image} width={width} height={height} sizes={sizes} priority={priority} formats={["avif", "webp"]} />
 		</div>
 	)
 }

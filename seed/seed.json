@@ -771,15 +771,18 @@
 			"terms": [
 				{
 					"slug": "seo",
-					"label": "SEO"
+					"label": "SEO",
+					"description": "[Placeholder category description] Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 				},
 				{
 					"slug": "web-performance",
-					"label": "Web performance"
+					"label": "Web performance",
+					"description": "[Placeholder category description] Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 				},
 				{
 					"slug": "cro",
-					"label": "CRO"
+					"label": "CRO",
+					"description": "[Placeholder category description] Ut enim ad minim veniam, quis nostrud exercitation ullamco."
 				}
 			]
 		}

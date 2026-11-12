@@ -20,7 +20,9 @@ const year = new Date().getFullYear();
 						<ul>
 							{site.footerMenu.map((item) => (
 								<li>
-									<a href={item.url}>{item.label}</a>
+									<a class="link" href={item.url}>
+										{item.label}
+									</a>
 								</li>
 							))}
 						</ul>
@@ -33,7 +35,7 @@ const year = new Date().getFullYear();
 						<ul>
 							{site.social.map((profile) => (
 								<li>
-									<a href={profile.url} rel="me noopener">
+									<a class="link" href={profile.url} rel="me noopener">
 										{profile.label}
 									</a>
 								</li>

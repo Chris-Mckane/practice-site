@@ -3,7 +3,7 @@
 import { headingTag, str, type BlockProps } from "../../lib/blocks";
 import { paragraphs } from "../../lib/format";
 
-type Props = BlockProps;
+type Props = BlockProps<"page_header">;
 
 const { value, blockKey } = Astro.props;
 const Heading = headingTag(Astro, blockKey);

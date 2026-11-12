@@ -1,0 +1,14 @@
+{
+  "name": "practice-site-verify",
+  "private": true,
+  "type": "module",
+  "description": "Verification tooling (Lighthouse, axe-core, heading outlines, page weights). Kept separate so Cloudflare's builds never install it.",
+  "scripts": {
+    "verify": "node verify.mjs"
+  },
+  "dependencies": {
+    "axe-core": "4.14.0",
+    "lighthouse": "13.6.0",
+    "playwright": "1.63.0"
+  }
+}

@@ -13,6 +13,7 @@ import {
 	sanitizeHref,
 	type MenuItem,
 } from "emdash";
+import type { SiteOption } from "../../emdash-env";
 
 export type Mode = "freelance" | "employed";
 
@@ -71,12 +72,11 @@ async function loadSite(Astro: AstroGlobal): Promise<Site> {
 	}
 
 	const s = settings.data;
-	const o = (options.entries[0]?.data ?? {}) as Record<string, unknown>;
+	const o: Partial<SiteOption> = options.entries[0]?.data ?? {};
 	const mode: Mode = o.availability_mode === "freelance" ? "freelance" : "employed";
 	const name = text(s.title) || text(o.person_name);
 	const ctaLabel = text(o[`cta_${mode}_label`]);
 	const ctaUrl = sanitizeHref(text(o[`cta_${mode}_url`]));
-	const social = Array.isArray(o.social_profiles) ? (o.social_profiles as Record<string, unknown>[]) : [];
 
 	return {
 		name,
@@ -95,7 +95,7 @@ async function loadSite(Astro: AstroGlobal): Promise<Site> {
 			email: text(o.contact_email),
 		},
 		person: { name: text(o.person_name) || name, jobTitle: text(o.person_job_title) },
-		social: social
+		social: (o.social_profiles ?? [])
 			.map((item) => ({ label: text(item.label), url: sanitizeHref(text(item.url)) }))
 			.filter((item) => item.label && item.url && item.url !== "#"),
 		footerNote: text(o.footer_note),

@@ -1,12 +1,12 @@
 ---
 /** Experience: a ruled list of roles. */
-import { rows, str, type BlockProps } from "../../lib/blocks";
+import { str, type BlockProps } from "../../lib/blocks";
 import { paragraphs } from "../../lib/format";
 
-type Props = BlockProps;
+type Props = BlockProps<"experience">;
 
 const { value } = Astro.props;
-const roles = rows(value.roles).filter((item) => str(item.role));
+const roles = (value.roles ?? []).filter((item) => str(item.role));
 ---
 
 <section class="section">

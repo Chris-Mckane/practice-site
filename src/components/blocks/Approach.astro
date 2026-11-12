@@ -1,12 +1,12 @@
 ---
 /** The approach section: heading, introduction and a ruled list of principles. */
-import { rows, str, type BlockProps } from "../../lib/blocks";
+import { str, type BlockProps } from "../../lib/blocks";
 import { paragraphs } from "../../lib/format";
 
-type Props = BlockProps;
+type Props = BlockProps<"approach">;
 
 const { value } = Astro.props;
-const principles = rows(value.principles).filter((item) => str(item.title));
+const principles = (value.principles ?? []).filter((item) => str(item.title));
 ---
 
 <section class="section">

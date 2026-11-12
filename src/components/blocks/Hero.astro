@@ -5,7 +5,7 @@ import { href, paragraphs } from "../../lib/format";
 import { getSite } from "../../lib/site";
 import ProofBadge from "../ProofBadge.astro";
 
-type Props = BlockProps;
+type Props = BlockProps<"hero">;
 
 const { value, blockKey } = Astro.props;
 const site = await getSite(Astro);
