@@ -1,0 +1,48 @@
+---
+/** Site footer: name and tagline, footer navigation (from the "footer" menu) and social profiles. */
+import { getSite } from "../lib/site";
+
+const site = await getSite(Astro);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="wrap">
+		<div class="site-footer__grid">
+			<div>
+				<p><a class="brand" href="/">{site.name}</a></p>
+				{site.tagline && <p>{site.tagline}</p>}
+				{site.footerNote && <p>{site.footerNote}</p>}
+			</div>
+			{
+				site.footerMenu.length > 0 && (
+					<nav aria-label="Footer">
+						<ul>
+							{site.footerMenu.map((item) => (
+								<li>
+									<a href={item.url}>{item.label}</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				)
+			}
+			{
+				site.social.length > 0 && (
+					<nav aria-label="Social profiles">
+						<ul>
+							{site.social.map((profile) => (
+								<li>
+									<a href={profile.url} rel="me noopener">
+										{profile.label}
+									</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				)
+			}
+		</div>
+		<p class="site-footer__legal">&copy; {year} {site.person.name}</p>
+	</div>
+</footer>

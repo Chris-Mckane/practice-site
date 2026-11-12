@@ -1,0 +1,30 @@
+---
+/** Site header: name, primary navigation (from the "primary" menu), call to action and theme switch. */
+import { getSite } from "../lib/site";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const site = await getSite(Astro);
+const here = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isCurrent = (url: string) => (url === "/" ? here === "/" : here === url || here.startsWith(`${url}/`));
+// Skip the button when the menu already links to the same place (for example "Read the blog").
+const showCta = site.cta && !site.primaryMenu.some((item) => item.url === site.cta?.url);
+---
+
+<header class="site-header wrap">
+	<a class="brand" href="/" aria-current={here === "/" ? "page" : undefined}>{site.name}</a>
+	<nav class="nav" aria-label="Primary">
+		<ul>
+			{
+				site.primaryMenu.map((item) => (
+					<li>
+						<a href={item.url} aria-current={isCurrent(item.url) ? "page" : undefined}>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		{showCta && site.cta && <a class="btn" href={site.cta.url}>{site.cta.label}</a>}
+		<ThemeToggle />
+	</nav>
+</header>

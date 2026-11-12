@@ -1,0 +1,139 @@
+---
+/**
+ * A single blog post: breadcrumbs, H1, byline with author link, published and updated
+ * dates, reading time, optional featured image, body, author box and related posts.
+ */
+import "../../styles/blog.css";
+import "../../styles/sections.css";
+import { decodeSlug, getEmDashCollection, getEmDashEntry } from "emdash";
+import AuthorBox from "../../components/AuthorBox.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Photo from "../../components/Photo.astro";
+import PostList from "../../components/PostList.astro";
+import Prose from "../../components/Prose.astro";
+import Base from "../../layouts/Base.astro";
+import { formatDate, readingMinutes, wordCount } from "../../lib/format";
+import { breadcrumbNode, personId, websiteId, type Crumb } from "../../lib/jsonld";
+import { entrySeo, mediaUrl } from "../../lib/seo";
+import { absoluteUrl, getSite } from "../../lib/site";
+
+const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
+
+const { entry: post, cacheHint } = await getEmDashEntry("posts", slug);
+if (!post) return Astro.rewrite("/404");
+
+const site = await getSite(Astro);
+const category = post.data.terms?.category?.[0];
+const related = await getEmDashCollection("posts", {
+	status: "published",
+	limit: 4,
+	orderBy: { published_at: "desc" },
+	...(category ? { where: { category: category.slug } } : {}),
+});
+if (Astro.cache?.enabled) {
+	Astro.cache.set(cacheHint);
+	Astro.cache.set(related.cacheHint);
+}
+const relatedPosts = related.entries.filter((entry) => entry.id !== post.id).slice(0, 3);
+
+const path = `/blog/${post.id}`;
+const image = post.data.featured_image;
+const seo = entrySeo(site, post, path, { image: mediaUrl(site, image) });
+const url = seo.canonical ?? absoluteUrl(site, path);
+
+const published: Date | null = post.data.publishedAt;
+const updatedField: Date | null = post.data.updated_date ? new Date(post.data.updated_date) : null;
+// Only show "Updated" when the editor recorded a later, substantial update.
+const updated = published && updatedField && updatedField.getTime() - published.getTime() > 86_400_000 ? updatedField : null;
+const minutes = readingMinutes(post.data.content);
+const authorName: string = post.data.byline?.displayName || site.person.name;
+const isOwner = authorName === site.person.name;
+
+const crumbs: Crumb[] = [
+	{ label: "Home", path: "/" },
+	{ label: "Blog", path: "/blog" },
+	...(category ? [{ label: category.label, path: `/blog/category/${category.slug}` }] : []),
+	{ label: post.data.title, path },
+];
+
+// Adds author, publisher and reading details to the BlogPosting node that EmDash outputs.
+const author = isOwner ? { "@id": personId(site) } : { "@type": "Person", name: authorName };
+const jsonld = [
+	{
+		"@type": "BlogPosting",
+		"@id": `${url}#article`,
+		author,
+		publisher: { "@id": personId(site) },
+		isPartOf: { "@id": websiteId(site) },
+		inLanguage: "en-GB",
+		wordCount: wordCount(post.data.content),
+		timeRequired: `PT${minutes}M`,
+		...(category ? { articleSection: category.label } : {}),
+	},
+	breadcrumbNode(site, crumbs),
+];
+---
+
+<Base
+	title={seo.title}
+	description={seo.description}
+	path={path}
+	canonical={seo.canonical}
+	image={seo.image}
+	content={{ collection: "posts", id: post.data.id, slug: post.id }}
+	article={{
+		publishedTime: published?.toISOString(),
+		modifiedTime: (updated ?? published)?.toISOString(),
+	}}
+	jsonld={jsonld}
+>
+	<article>
+		<header class="post__header wrap">
+			<Breadcrumbs crumbs={crumbs} />
+			<h1 class="h-page" {...post.edit.title}>{post.data.title}</h1>
+			{post.data.excerpt && <p class="lead" {...post.edit.excerpt}>{post.data.excerpt}</p>}
+		</header>
+		<div class="section">
+			<div class="wrap section__grid">
+				<ul class="byline meta section__head">
+					<li>By <a href="/about" rel="author">{authorName}</a></li>
+					{
+						published && (
+							<li>
+								Published <time datetime={published.toISOString()}>{formatDate(published, site.timezone)}</time>
+							</li>
+						)
+					}
+					{
+						updated && (
+							<li>
+								Updated <time datetime={updated.toISOString()}>{formatDate(updated, site.timezone)}</time>
+							</li>
+						)
+					}
+					<li>{minutes} min read</li>
+				</ul>
+				<div>
+					<Photo image={image} class="post__image" sizes="(min-width: 58rem) 60vw, 92vw" priority />
+					<div {...post.edit.content}>
+						<Prose value={post.data.content} />
+					</div>
+					<AuthorBox name={authorName} bio={post.data.byline?.bio} />
+				</div>
+			</div>
+		</div>
+	</article>
+	{
+		relatedPosts.length > 0 && (
+			<section class="section">
+				<div class="wrap section__grid">
+					<div class="section__head">
+						<h2 class="h-section">Related posts</h2>
+					</div>
+					<PostList posts={relatedPosts} heading="h3" />
+				</div>
+			</section>
+		)
+	}
+</Base>

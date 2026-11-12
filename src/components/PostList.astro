@@ -1,0 +1,44 @@
+---
+/** A list of posts as plain rows: date, category, title, excerpt and reading time. No cards. */
+import "../styles/blog.css";
+import type { ContentEntry } from "emdash";
+import { formatDate, readingMinutes } from "../lib/format";
+import { getSite } from "../lib/site";
+
+interface Props {
+	posts: ContentEntry<Record<string, any>>[];
+	/** Heading level for post titles: "h2" on listing pages, "h3" inside a section with its own H2. */
+	heading: "h2" | "h3";
+}
+
+const { posts, heading: Heading } = Astro.props;
+const site = await getSite(Astro);
+---
+
+<ul class="posts">
+	{
+		posts.map((post) => {
+			const date = post.data.publishedAt as Date | null;
+			const category = post.data.terms?.category?.[0];
+			return (
+				<li>
+					<p class="meta">
+						{date && <time datetime={date.toISOString()}>{formatDate(date, site.timezone)}</time>}
+						{category && (
+							<>
+								{" · "}
+								<a href={`/blog/category/${category.slug}`}>{category.label}</a>
+							</>
+						)}
+						{" · "}
+						{readingMinutes(post.data.content)} min read
+					</p>
+					<Heading class="h-item">
+						<a href={`/blog/${post.id}`}>{post.data.title}</a>
+					</Heading>
+					{post.data.excerpt && <p>{post.data.excerpt}</p>}
+				</li>
+			);
+		})
+	}
+</ul>

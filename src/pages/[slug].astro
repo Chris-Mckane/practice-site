@@ -1,0 +1,23 @@
+---
+/**
+ * Any other page from the Pages collection, served at /its-slug (for example /about).
+ * New pages created in the admin appear here automatically, with no code changes.
+ */
+import { decodeSlug, getEmDashEntry } from "emdash";
+import PageView from "../components/PageView.astro";
+import { CACHE } from "../lib/site";
+
+const slug = decodeSlug(Astro.params.slug);
+// "home" is served at "/" and "blog" by the blog index, so they never appear here.
+if (!slug || slug === "home" || slug === "blog") return Astro.rewrite("/404");
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", slug);
+if (!page) return Astro.rewrite("/404");
+
+if (Astro.cache?.enabled) {
+	Astro.cache.set({ ...CACHE, tags: ["pages", "site_options", "all"] });
+	Astro.cache.set(cacheHint);
+}
+---
+
+<PageView page={page} path={`/${page.id}`} />

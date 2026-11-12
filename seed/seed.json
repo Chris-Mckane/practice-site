@@ -1,0 +1,2826 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"defaultLocale": "en",
+	"meta": {
+		"name": "Chris McKane",
+		"description": "Personal brand site: homepage, about page and blog. All copy is Lorem ipsum placeholder text to be replaced in the admin.",
+		"author": "Chris McKane"
+	},
+	"settings": {
+		"title": "Chris McKane",
+		"tagline": "Digital marketing strategist",
+		"postsPerPage": 5,
+		"dateFormat": "d MMMM yyyy",
+		"timezone": "Europe/London",
+		"seo": {
+			"titleSeparator": "|"
+		}
+	},
+	"blockTypes": [
+		{
+			"slug": "hero",
+			"label": "Hero (homepage introduction)",
+			"description": "The opening of the homepage: the main H1 headline, a short introduction, the availability status line, the primary button and the live performance badge.",
+			"icon": "star",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "headline",
+							"label": "Headline (the page's H1: include your name and role)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "intro",
+							"label": "Introduction (one or two sentences)",
+							"type": "text"
+						},
+						{
+							"slug": "show_status",
+							"label": "Show the availability status line (wording comes from Site options)",
+							"type": "boolean",
+							"defaultValue": true
+						},
+						{
+							"slug": "show_primary_cta",
+							"label": "Show the primary button (label and link come from Site options and follow the availability mode)",
+							"type": "boolean",
+							"defaultValue": true
+						},
+						{
+							"slug": "secondary_label",
+							"label": "Secondary link",
+							"type": "string"
+						},
+						{
+							"slug": "secondary_url",
+							"label": "Secondary link: link (starts with /, https://, mailto: or #)",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						},
+						{
+							"slug": "show_proof_badge",
+							"label": "Show the live performance badge (LCP, CLS, page weight, CO2e)",
+							"type": "boolean",
+							"defaultValue": true
+						},
+						{
+							"slug": "methodology_label",
+							"label": "Performance badge methodology link",
+							"type": "string"
+						},
+						{
+							"slug": "methodology_url",
+							"label": "Performance badge methodology link: link (starts with /, https://, mailto: or #)",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "page_header",
+			"label": "Page header",
+			"description": "A simple page opening for any page that is not the homepage or About page: the H1 headline and an optional lead paragraph.",
+			"icon": "text-h-one",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "headline",
+							"label": "Headline (the page's H1)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "lead",
+							"label": "Lead paragraph",
+							"type": "text"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "about_intro",
+			"label": "About intro",
+			"description": "A short introduction to Chris with an optional photo and a link to the full About page.",
+			"icon": "user",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "body",
+							"label": "Body text",
+							"type": "portableText"
+						},
+						{
+							"slug": "image",
+							"label": "Photo (alt text is required: images without it are not shown)",
+							"type": "image"
+						},
+						{
+							"slug": "link_label",
+							"label": "Link",
+							"type": "string"
+						},
+						{
+							"slug": "link_url",
+							"label": "Link: link (starts with /, https://, mailto: or #)",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "approach",
+			"label": "Approach (organic growth focus)",
+			"description": "Explains the digital marketing approach as a heading, an introduction and a list of principles. Each principle has a title (H3) and a description.",
+			"icon": "plant",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "intro",
+							"label": "Introduction",
+							"type": "text"
+						},
+						{
+							"slug": "principles",
+							"label": "Principles",
+							"type": "repeater",
+							"validation": {
+								"minItems": 1,
+								"maxItems": 8,
+								"subFields": [
+									{
+										"slug": "title",
+										"label": "Title (H3)",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "description",
+										"label": "Description",
+										"type": "text"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "route_links",
+			"label": "Route links",
+			"description": "Signposts to the main destinations (for example Blog and About). Optionally ends with the primary call to action from Site options, which follows the availability mode.",
+			"icon": "signpost",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "intro",
+							"label": "Introduction",
+							"type": "text"
+						},
+						{
+							"slug": "routes",
+							"label": "Routes",
+							"type": "repeater",
+							"validation": {
+								"minItems": 1,
+								"maxItems": 6,
+								"subFields": [
+									{
+										"slug": "label",
+										"label": "Link text",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "description",
+										"label": "Short description",
+										"type": "string"
+									},
+									{
+										"slug": "url",
+										"label": "Link (starts with /, https://, mailto: or #)",
+										"type": "string",
+										"required": true,
+										"validation": {
+											"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+										}
+									}
+								]
+							}
+						},
+						{
+							"slug": "include_primary_cta",
+							"label": "Add the primary call to action from Site options as the final route",
+							"type": "boolean",
+							"defaultValue": true
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "latest_posts",
+			"label": "Latest posts",
+			"description": "Lists the most recent blog posts automatically, with a link to the full blog.",
+			"icon": "newspaper",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "count",
+							"label": "Number of posts to show",
+							"type": "integer",
+							"defaultValue": 3,
+							"validation": {
+								"min": 1,
+								"max": 6
+							}
+						},
+						{
+							"slug": "link_label",
+							"label": "Link to all posts",
+							"type": "string"
+						},
+						{
+							"slug": "link_url",
+							"label": "Link to all posts: link (starts with /, https://, mailto: or #)",
+							"type": "string",
+							"validation": {
+								"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "contact_cta",
+			"label": "Contact call to action",
+			"description": "The closing contact section. Its heading, text and button come from Site options and change with the availability mode, so there is nothing to keep in sync here.",
+			"icon": "envelope",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "show_email",
+							"label": "Show the contact email address as a link",
+							"type": "boolean",
+							"defaultValue": true
+						},
+						{
+							"slug": "show_social",
+							"label": "Show the social profile links",
+							"type": "boolean",
+							"defaultValue": true
+						},
+						{
+							"slug": "anchor_id",
+							"label": "Section ID (lowercase, used for links such as /#contact)",
+							"type": "string",
+							"defaultValue": "contact",
+							"validation": {
+								"pattern": "^(?:$|[a-z][a-z0-9_-]*)$"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "profile",
+			"label": "Profile (About page introduction)",
+			"description": "The opening of the About page: the H1 headline, a lead paragraph, a portrait photo and the biography. Also switches on Person structured data for the page.",
+			"icon": "identification-card",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "headline",
+							"label": "Headline (the page's H1)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "lead",
+							"label": "Lead paragraph",
+							"type": "text"
+						},
+						{
+							"slug": "photo",
+							"label": "Portrait photo (alt text is required: images without it are not shown)",
+							"type": "image"
+						},
+						{
+							"slug": "photo_caption",
+							"label": "Photo caption",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Biography",
+							"type": "portableText"
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "experience",
+			"label": "Experience",
+			"description": "A list of roles: role title (H3), organisation, period and a short summary.",
+			"icon": "briefcase",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "intro",
+							"label": "Introduction",
+							"type": "text"
+						},
+						{
+							"slug": "roles",
+							"label": "Roles",
+							"type": "repeater",
+							"validation": {
+								"maxItems": 20,
+								"subFields": [
+									{
+										"slug": "role",
+										"label": "Role title (H3)",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "organisation",
+										"label": "Organisation",
+										"type": "string"
+									},
+									{
+										"slug": "period",
+										"label": "Period (for example 2021 to 2024)",
+										"type": "string"
+									},
+									{
+										"slug": "summary",
+										"label": "Summary",
+										"type": "text"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "credentials",
+			"label": "Credentials",
+			"description": "A list of qualifications, certifications or memberships: name, issuer and year.",
+			"icon": "certificate",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2)",
+							"type": "string",
+							"required": true
+						},
+						{
+							"slug": "intro",
+							"label": "Introduction",
+							"type": "text"
+						},
+						{
+							"slug": "items",
+							"label": "Credentials",
+							"type": "repeater",
+							"validation": {
+								"maxItems": 30,
+								"subFields": [
+									{
+										"slug": "name",
+										"label": "Credential",
+										"type": "string",
+										"required": true
+									},
+									{
+										"slug": "issuer",
+										"label": "Issuer",
+										"type": "string"
+									},
+									{
+										"slug": "year",
+										"label": "Year",
+										"type": "string"
+									}
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"slug": "rich_text",
+			"label": "Text section",
+			"description": "A general-purpose section of rich text with an optional H2 heading. Use H3 for sub-headings inside the body.",
+			"icon": "text-align-left",
+			"category": "Page sections",
+			"currentVersion": 1,
+			"versions": [
+				{
+					"version": 1,
+					"fields": [
+						{
+							"slug": "heading",
+							"label": "Heading (H2, optional)",
+							"type": "string"
+						},
+						{
+							"slug": "body",
+							"label": "Body text",
+							"type": "portableText"
+						}
+					]
+				}
+			]
+		}
+	],
+	"collections": [
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"description": "Standalone pages built from reorderable sections (blocks). The page with the slug “home” is the homepage and the page with the slug “blog” is the introduction shown above the list of posts at /blog. Every other page is served at /its-slug, for example /about.",
+			"icon": "file-text",
+			"sortOrder": 1,
+			"urlPattern": "/{slug}",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title (used in the admin, the browser tab and search results; the visible H1 comes from the first Hero or Profile section)",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "layout",
+					"label": "Page sections",
+					"type": "blocks",
+					"validation": {
+						"allowedTypes": [
+							"hero",
+							"page_header",
+							"about_intro",
+							"approach",
+							"route_links",
+							"latest_posts",
+							"contact_cta",
+							"profile",
+							"experience",
+							"credentials",
+							"rich_text"
+						],
+						"maxItems": 20
+					}
+				}
+			]
+		},
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"description": "Blog posts, served at /blog/their-slug. Reading time is calculated automatically. The author is set with the Byline panel and the category with the Categories panel.",
+			"icon": "article",
+			"sortOrder": 2,
+			"urlPattern": "/blog/{slug}",
+			"dateField": "publishedAt",
+			"supports": [
+				"drafts",
+				"revisions",
+				"preview",
+				"search",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title (the post's H1)",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt (one or two sentences: shown in lists and used as the default meta description)",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured image (optional; alt text is required: images without it are not shown)",
+					"type": "image"
+				},
+				{
+					"slug": "content",
+					"label": "Body (use Heading 2 and Heading 3 only; the title is the only H1)",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "updated_date",
+					"label": "Last updated (optional: set this when you make a substantial update; shown to readers and search engines)",
+					"type": "datetime"
+				}
+			]
+		},
+		{
+			"slug": "site_options",
+			"label": "Site options",
+			"labelSingular": "Site options",
+			"description": "One entry that controls site-wide behaviour: the availability mode (freelance or employed), the primary call to action for each mode, contact wording, contact email and social profiles. Edit the single “Global site options” entry; do not add more.",
+			"icon": "sliders-horizontal",
+			"sortOrder": 3,
+			"routable": false,
+			"supports": [
+				"drafts",
+				"revisions"
+			],
+			"admin": {
+				"quickCreate": false
+			},
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Name of this entry (admin only)",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "availability_mode",
+					"label": "Availability mode (freelance = open for freelance work; employed = blog and thought leadership)",
+					"type": "select",
+					"required": true,
+					"defaultValue": "employed",
+					"validation": {
+						"options": [
+							"freelance",
+							"employed"
+						]
+					}
+				},
+				{
+					"slug": "person_name",
+					"label": "Your name (used in the author box and structured data)",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "person_job_title",
+					"label": "Your job title or role (used in structured data)",
+					"type": "string"
+				},
+				{
+					"slug": "status_freelance",
+					"label": "Status line when in freelance mode",
+					"type": "string"
+				},
+				{
+					"slug": "status_employed",
+					"label": "Status line when in employed mode",
+					"type": "string"
+				},
+				{
+					"slug": "cta_freelance_label",
+					"label": "Primary button text when in freelance mode",
+					"type": "string"
+				},
+				{
+					"slug": "cta_freelance_url",
+					"label": "Primary button link when in freelance mode (starts with /, https://, mailto: or #)",
+					"type": "string",
+					"validation": {
+						"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+					}
+				},
+				{
+					"slug": "cta_employed_label",
+					"label": "Primary button text when in employed mode",
+					"type": "string"
+				},
+				{
+					"slug": "cta_employed_url",
+					"label": "Primary button link when in employed mode (starts with /, https://, mailto: or #)",
+					"type": "string",
+					"validation": {
+						"pattern": "^(?:$|(?:https?://|mailto:|tel:|/(?!/)|#).+)$"
+					}
+				},
+				{
+					"slug": "contact_freelance_heading",
+					"label": "Contact section heading when in freelance mode",
+					"type": "string"
+				},
+				{
+					"slug": "contact_freelance_text",
+					"label": "Contact section text when in freelance mode",
+					"type": "text"
+				},
+				{
+					"slug": "contact_employed_heading",
+					"label": "Contact section heading when in employed mode",
+					"type": "string"
+				},
+				{
+					"slug": "contact_employed_text",
+					"label": "Contact section text when in employed mode",
+					"type": "text"
+				},
+				{
+					"slug": "contact_email",
+					"label": "Contact email address",
+					"type": "string",
+					"validation": {
+						"pattern": "^(?:$|[^@\\s]+@[^@\\s]+\\.[^@\\s]+)$"
+					}
+				},
+				{
+					"slug": "social_profiles",
+					"label": "Social profiles (shown in the footer and contact section, and listed in structured data)",
+					"type": "repeater",
+					"validation": {
+						"maxItems": 10,
+						"subFields": [
+							{
+								"slug": "label",
+								"label": "Network name (for example LinkedIn)",
+								"type": "string",
+								"required": true
+							},
+							{
+								"slug": "url",
+								"label": "Profile URL",
+								"type": "url",
+								"required": true
+							}
+						]
+					}
+				},
+				{
+					"slug": "footer_note",
+					"label": "Footer note (optional short line of text)",
+					"type": "string"
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "category",
+			"label": "Categories",
+			"labelSingular": "Category",
+			"hierarchical": true,
+			"collections": [
+				"posts"
+			],
+			"terms": [
+				{
+					"slug": "seo",
+					"label": "SEO"
+				},
+				{
+					"slug": "web-performance",
+					"label": "Web performance"
+				},
+				{
+					"slug": "cro",
+					"label": "CRO"
+				}
+			]
+		}
+	],
+	"bylines": [
+		{
+			"id": "byline-chris",
+			"slug": "chris-mckane",
+			"displayName": "Chris McKane",
+			"bio": "[Placeholder author bio] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary navigation (header)",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Blog",
+					"url": "/blog"
+				},
+				{
+					"type": "custom",
+					"label": "About",
+					"url": "/about"
+				}
+			]
+		},
+		{
+			"name": "footer",
+			"label": "Footer navigation",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Home",
+					"url": "/"
+				},
+				{
+					"type": "custom",
+					"label": "Blog",
+					"url": "/blog"
+				},
+				{
+					"type": "custom",
+					"label": "About",
+					"url": "/about"
+				},
+				{
+					"type": "custom",
+					"label": "RSS feed",
+					"url": "/rss.xml"
+				}
+			]
+		}
+	],
+	"redirects": [
+		{
+			"source": "/home",
+			"destination": "/",
+			"type": 301,
+			"enabled": true,
+			"groupName": "Site structure"
+		}
+	],
+	"content": {
+		"site_options": [
+			{
+				"id": "site-options-global",
+				"slug": "global",
+				"status": "published",
+				"data": {
+					"title": "Global site options",
+					"availability_mode": "freelance",
+					"person_name": "Chris McKane",
+					"person_job_title": "Digital marketing strategist",
+					"status_freelance": "[Placeholder status] Available for freelance projects",
+					"status_employed": "[Placeholder status] Not taking on freelance work at the moment",
+					"cta_freelance_label": "Start a project",
+					"cta_freelance_url": "/#contact",
+					"cta_employed_label": "Read the blog",
+					"cta_employed_url": "/blog",
+					"contact_freelance_heading": "[Placeholder] Lorem ipsum: work with me",
+					"contact_freelance_text": "[Placeholder freelance contact text] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+					"contact_employed_heading": "[Placeholder] Lorem ipsum: say hello",
+					"contact_employed_text": "[Placeholder employed contact text] Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+					"contact_email": "hello@example.com",
+					"social_profiles": [
+						{
+							"label": "LinkedIn",
+							"url": "https://www.linkedin.com/"
+						},
+						{
+							"label": "GitHub",
+							"url": "https://github.com/"
+						}
+					],
+					"footer_note": "[Placeholder footer note] Lorem ipsum dolor sit amet."
+				}
+			}
+		],
+		"pages": [
+			{
+				"id": "page-home",
+				"slug": "home",
+				"status": "published",
+				"data": {
+					"title": "Chris McKane, digital marketing strategist",
+					"layout": [
+						{
+							"_type": "hero",
+							"_version": 1,
+							"_key": "home-hero",
+							"headline": "Chris McKane, digital marketing strategist",
+							"intro": "[Placeholder introduction] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+							"show_status": true,
+							"show_primary_cta": true,
+							"secondary_label": "More about Chris",
+							"secondary_url": "/about",
+							"show_proof_badge": true,
+							"methodology_label": "How this is measured",
+							"methodology_url": "https://sustainablewebdesign.org/estimating-digital-emissions/"
+						},
+						{
+							"_type": "about_intro",
+							"_version": 1,
+							"_key": "home-about",
+							"heading": "[Placeholder] Lorem ipsum: a short introduction",
+							"body": [
+								{
+									"_type": "block",
+									"_key": "k69",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "k6a",
+											"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+										}
+									]
+								},
+								{
+									"_type": "block",
+									"_key": "k6b",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "k6c",
+											"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+										}
+									]
+								}
+							],
+							"image": {
+								"$media": {
+									"url": "https://raw.githubusercontent.com/Chris-Mckane/practice-site/main/seed/assets/placeholder-4x5.png",
+									"alt": "Placeholder portrait photo with a 4:5 aspect ratio",
+									"filename": "placeholder-4x5.png"
+								}
+							},
+							"link_label": "Read the full story on the About page",
+							"link_url": "/about"
+						},
+						{
+							"_type": "approach",
+							"_version": 1,
+							"_key": "home-approach",
+							"heading": "[Placeholder] An approach built on organic growth",
+							"intro": "[Placeholder approach introduction] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+							"principles": [
+								{
+									"title": "[Placeholder] Organic search",
+									"description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								},
+								{
+									"title": "[Placeholder] Web performance",
+									"description": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								},
+								{
+									"title": "[Placeholder] Design and experience",
+									"description": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								},
+								{
+									"title": "[Placeholder] Conversion",
+									"description": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "route_links",
+							"_version": 1,
+							"_key": "home-routes",
+							"heading": "[Placeholder] Find what you came for",
+							"intro": "",
+							"routes": [
+								{
+									"label": "Read the blog",
+									"description": "[Placeholder] Lorem ipsum dolor sit amet, consectetur.",
+									"url": "/blog"
+								},
+								{
+									"label": "About Chris",
+									"description": "[Placeholder] Sed do eiusmod tempor incididunt.",
+									"url": "/about"
+								}
+							],
+							"include_primary_cta": true
+						},
+						{
+							"_type": "latest_posts",
+							"_version": 1,
+							"_key": "home-latest",
+							"heading": "Latest from the blog",
+							"count": 3,
+							"link_label": "Browse all posts",
+							"link_url": "/blog"
+						},
+						{
+							"_type": "contact_cta",
+							"_version": 1,
+							"_key": "home-contact",
+							"show_email": true,
+							"show_social": true,
+							"anchor_id": "contact"
+						}
+					]
+				}
+			},
+			{
+				"id": "page-blog",
+				"slug": "blog",
+				"status": "published",
+				"data": {
+					"title": "Blog",
+					"layout": [
+						{
+							"_type": "page_header",
+							"_version": 1,
+							"_key": "blog-header",
+							"headline": "Blog",
+							"lead": "[Placeholder blog introduction] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+						}
+					]
+				}
+			},
+			{
+				"id": "page-about",
+				"slug": "about",
+				"status": "published",
+				"data": {
+					"title": "About Chris McKane",
+					"layout": [
+						{
+							"_type": "profile",
+							"_version": 1,
+							"_key": "about-profile",
+							"headline": "About Chris McKane",
+							"lead": "[Placeholder lead paragraph] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+							"photo": {
+								"$media": {
+									"url": "https://raw.githubusercontent.com/Chris-Mckane/practice-site/main/seed/assets/placeholder-4x5.png",
+									"alt": "Placeholder portrait photo with a 4:5 aspect ratio",
+									"filename": "placeholder-4x5.png"
+								}
+							},
+							"photo_caption": "[Placeholder caption] Lorem ipsum dolor sit amet.",
+							"body": [
+								{
+									"_type": "block",
+									"_key": "k6d",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "k6e",
+											"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+										}
+									]
+								},
+								{
+									"_type": "block",
+									"_key": "k6f",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "k6g",
+											"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+										}
+									]
+								},
+								{
+									"_type": "block",
+									"_key": "k6h",
+									"style": "normal",
+									"markDefs": [],
+									"children": [
+										{
+											"_type": "span",
+											"_key": "k6i",
+											"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+										}
+									]
+								}
+							]
+						},
+						{
+							"_type": "experience",
+							"_version": 1,
+							"_key": "about-experience",
+							"heading": "Experience",
+							"intro": "[Placeholder experience introduction] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+							"roles": [
+								{
+									"role": "[Placeholder role title]",
+									"organisation": "[Placeholder organisation]",
+									"period": "[Year] to present",
+									"summary": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								},
+								{
+									"role": "[Placeholder role title]",
+									"organisation": "[Placeholder organisation]",
+									"period": "[Year] to [year]",
+									"summary": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								},
+								{
+									"role": "[Placeholder role title]",
+									"organisation": "[Placeholder organisation]",
+									"period": "[Year] to [year]",
+									"summary": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "credentials",
+							"_version": 1,
+							"_key": "about-credentials",
+							"heading": "Credentials",
+							"intro": "[Placeholder credentials introduction] Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.",
+							"items": [
+								{
+									"name": "[Placeholder credential]",
+									"issuer": "[Placeholder issuer]",
+									"year": "[Year]"
+								},
+								{
+									"name": "[Placeholder credential]",
+									"issuer": "[Placeholder issuer]",
+									"year": "[Year]"
+								},
+								{
+									"name": "[Placeholder credential]",
+									"issuer": "[Placeholder issuer]",
+									"year": "[Year]"
+								}
+							]
+						},
+						{
+							"_type": "contact_cta",
+							"_version": 1,
+							"_key": "about-contact",
+							"show_email": true,
+							"show_social": true,
+							"anchor_id": "contact"
+						}
+					]
+				}
+			}
+		],
+		"posts": [
+			{
+				"id": "post-one",
+				"slug": "placeholder-post-one",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post one: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+					"featured_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Chris-Mckane/practice-site/main/seed/assets/placeholder-16x9.png",
+							"alt": "Placeholder image with a 16:9 aspect ratio",
+							"filename": "placeholder-16x9.png"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k1",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k6",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k7",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k8",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k9",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ka",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kb",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kc",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kd",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ke",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kf",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kg",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kh",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ki",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "kj",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kk",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kl",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "km",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kn",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ko",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kp",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kq",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kr",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ks",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kt",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ku",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kv",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "kw",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"seo"
+					]
+				}
+			},
+			{
+				"id": "post-two",
+				"slug": "placeholder-post-two",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post two: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "kx",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "ky",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "kz",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k10",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k11",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k12",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k13",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k14",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k15",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k16",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k17",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k18",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k19",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1a",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1b",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1c",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1d",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1e",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k1f",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1g",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1h",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1i",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1j",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1k",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1l",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1m",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1n",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1o",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1p",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1q",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1r",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1s",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"web-performance"
+					]
+				}
+			},
+			{
+				"id": "post-three",
+				"slug": "placeholder-post-three",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post three: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+					"featured_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Chris-Mckane/practice-site/main/seed/assets/placeholder-16x9.png",
+							"alt": "Placeholder image with a 16:9 aspect ratio",
+							"filename": "placeholder-16x9.png"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k1t",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1u",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1v",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1w",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1x",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k1y",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k1z",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k20",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k21",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k22",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k23",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k24",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k25",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k26",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k27",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k28",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k29",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2a",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k2b",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2c",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2d",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2e",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2f",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2g",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2h",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2i",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2j",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2k",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2l",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2m",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2n",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2o",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"cro"
+					]
+				}
+			},
+			{
+				"id": "post-four",
+				"slug": "placeholder-post-four",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post four: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k2p",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2q",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2r",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2s",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2t",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2u",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2v",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2w",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2x",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k2y",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k2z",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k30",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k31",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k32",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k33",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k34",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k35",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k36",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k37",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k38",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k39",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3a",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3b",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3c",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3d",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3e",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3f",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3g",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3h",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3i",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3j",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3k",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"seo"
+					]
+				}
+			},
+			{
+				"id": "post-five",
+				"slug": "placeholder-post-five",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post five: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit.",
+					"featured_image": {
+						"$media": {
+							"url": "https://raw.githubusercontent.com/Chris-Mckane/practice-site/main/seed/assets/placeholder-16x9.png",
+							"alt": "Placeholder image with a 16:9 aspect ratio",
+							"filename": "placeholder-16x9.png"
+						}
+					},
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k3l",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3m",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3n",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3o",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3p",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3q",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3r",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3s",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3t",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3u",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3v",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3w",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k3x",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k3y",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k3z",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k40",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k41",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k42",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k43",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k44",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k45",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k46",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k47",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k48",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k49",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4a",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4b",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4c",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4d",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4e",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4f",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4g",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"web-performance"
+					]
+				}
+			},
+			{
+				"id": "post-six",
+				"slug": "placeholder-post-six",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post six: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k4h",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4i",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4j",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4k",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4l",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4m",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4n",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4o",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4p",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4q",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4r",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4s",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k4t",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4u",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4v",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4w",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4x",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k4y",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k4z",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k50",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k51",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k52",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k53",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k54",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k55",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k56",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k57",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k58",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k59",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5a",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5b",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5c",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"cro"
+					]
+				}
+			},
+			{
+				"id": "post-seven",
+				"slug": "placeholder-post-seven",
+				"status": "published",
+				"data": {
+					"title": "Placeholder post seven: lorem ipsum dolor sit amet",
+					"excerpt": "[Placeholder excerpt] Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.",
+					"content": [
+						{
+							"_type": "block",
+							"_key": "k5d",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5e",
+									"text": "Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5f",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5g",
+									"text": "Lorem ipsum dolor sit amet"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5h",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5i",
+									"text": "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5j",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5k",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5l",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5m",
+									"text": "Consectetur adipiscing elit"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5n",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5o",
+									"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5p",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5q",
+									"text": "Sed do eiusmod tempor incididunt ut labore."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5r",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5s",
+									"text": "Ut enim ad minim veniam, quis nostrud exercitation."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5t",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5u",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate."
+								}
+							],
+							"listItem": "bullet",
+							"level": 1
+						},
+						{
+							"_type": "block",
+							"_key": "k5v",
+							"style": "h3",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5w",
+									"text": "Sed do eiusmod tempor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5x",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k5y",
+									"text": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k5z",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k60",
+									"text": "Ut enim ad minim veniam"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k61",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k62",
+									"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k63",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k64",
+									"text": "Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat."
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k65",
+							"style": "h2",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k66",
+									"text": "Duis aute irure dolor"
+								}
+							]
+						},
+						{
+							"_type": "block",
+							"_key": "k67",
+							"style": "normal",
+							"markDefs": [],
+							"children": [
+								{
+									"_type": "span",
+									"_key": "k68",
+									"text": "Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus."
+								}
+							]
+						}
+					]
+				},
+				"bylines": [
+					{
+						"byline": "byline-chris"
+					}
+				],
+				"taxonomies": {
+					"category": [
+						"seo"
+					]
+				}
+			}
+		]
+	}
+}

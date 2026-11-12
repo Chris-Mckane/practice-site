@@ -1,0 +1,90 @@
+---
+/**
+ * Proof badge: this page's real performance, measured in the visitor's own browser.
+ *
+ * Shows Largest Contentful Paint, Cumulative Layout Shift, bytes transferred and an
+ * estimate of the CO2e emitted by this page load (Sustainable Web Design Model v4:
+ * bytes x 0.3 kWh/GB x 494 gCO2e/kWh). Numbers are filled in only after the page
+ * has finished loading; the space is reserved in advance, so nothing moves.
+ */
+import "../styles/badge.css";
+
+interface Props {
+	methodologyLabel?: string;
+	methodologyUrl?: string | null;
+}
+
+const { methodologyLabel, methodologyUrl } = Astro.props;
+---
+
+<div class="proof" id="proof">
+	<p class="meta">This page, measured live on your device</p>
+	<dl>
+		<div>
+			<dt class="meta"><abbr title="Largest Contentful Paint">LCP</abbr></dt>
+			<dd data-m="lcp">&ndash;</dd>
+		</div>
+		<div>
+			<dt class="meta"><abbr title="Cumulative Layout Shift">CLS</abbr></dt>
+			<dd data-m="cls">&ndash;</dd>
+		</div>
+		<div>
+			<dt class="meta">Transferred</dt>
+			<dd data-m="kb">&ndash;</dd>
+		</div>
+		<div>
+			<dt class="meta">CO<sub>2</sub>e per view</dt>
+			<dd data-m="co2">&ndash;</dd>
+		</div>
+	</dl>
+	{
+		methodologyUrl && methodologyLabel && (
+			<p class="meta">
+				<a href={methodologyUrl}>{methodologyLabel}</a>
+			</p>
+		)
+	}
+</div>
+<script is:inline>
+	(function () {
+		var p = document.getElementById("proof");
+		if (!p || !("PerformanceObserver" in window)) return;
+		var lcp = 0,
+			cls = 0,
+			ready = 0;
+		function cell(k) {
+			return p.querySelector('[data-m="' + k + '"]');
+		}
+		function draw() {
+			var n = performance.getEntriesByType("navigation")[0],
+				b = n ? n.transferSize : 0;
+			performance.getEntriesByType("resource").forEach(function (r) {
+				b += r.transferSize || 0;
+			});
+			cell("lcp").textContent = lcp ? (lcp / 1e3).toFixed(2) + " s" : "n/a";
+			cell("cls").textContent = cls.toFixed(2);
+			cell("kb").textContent = b ? (b / 1024).toFixed(1) + " KB" : "cached";
+			cell("co2").textContent = ((b / 1e9) * 0.3 * 494 * 1e3).toFixed(1) + " mg";
+		}
+		function watch(type, fn) {
+			try {
+				new PerformanceObserver(function (l) {
+					l.getEntries().forEach(fn);
+					if (ready) draw();
+				}).observe({ type: type, buffered: true });
+			} catch (e) {}
+		}
+		watch("largest-contentful-paint", function (e) {
+			lcp = e.startTime;
+		});
+		watch("layout-shift", function (e) {
+			if (!e.hadRecentInput) cls += e.value;
+		});
+		addEventListener("load", function () {
+			setTimeout(function () {
+				ready = 1;
+				draw();
+			}, 0);
+		});
+	})();
+</script>

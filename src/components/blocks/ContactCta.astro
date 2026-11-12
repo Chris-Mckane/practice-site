@@ -1,0 +1,53 @@
+---
+/**
+ * Closing contact section. Heading, text and button come from Site options
+ * and change with the availability mode.
+ */
+import { str, type BlockProps } from "../../lib/blocks";
+import { getSite } from "../../lib/site";
+
+type Props = BlockProps;
+
+const { value } = Astro.props;
+const site = await getSite(Astro);
+const id = str(value.anchor_id) || undefined;
+const { heading, text, email } = site.contact;
+const showEmail = value.show_email !== false && email;
+const showSocial = value.show_social !== false && site.social.length > 0;
+// The button would be pointless if it only jumped to this very section.
+const cta = site.cta && site.cta.url !== `/#${id}` && site.cta.url !== `#${id}` ? site.cta : null;
+---
+
+{
+	(heading || text) && (
+		<section class="contact" id={id}>
+			<div class="wrap">
+				{heading && <h2 class="h-page">{heading}</h2>}
+				{text && <p class="lead">{text}</p>}
+				<div class="contact__links">
+					{showEmail && (
+						<a class="btn btn--lg" href={`mailto:${email}`}>
+							{email}
+						</a>
+					)}
+					{!showEmail && cta && (
+						<a class="btn btn--lg" href={cta.url}>
+							{cta.label}
+						</a>
+					)}
+					{showSocial && (
+						<ul>
+							{site.social.map((profile) => (
+								<li>
+									<a href={profile.url} rel="me noopener">
+										{profile.label}
+									</a>
+								</li>
+							))}
+						</ul>
+					)}
+				</div>
+			</div>
+		</section>
+	)
+}

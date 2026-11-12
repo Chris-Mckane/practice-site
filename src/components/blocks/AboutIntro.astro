@@ -1,0 +1,38 @@
+---
+/** A short introduction with an optional photo and a link to the About page. */
+import { str, type BlockProps } from "../../lib/blocks";
+import { href } from "../../lib/format";
+import Photo from "../Photo.astro";
+import Prose from "../Prose.astro";
+
+type Props = BlockProps;
+
+const { value } = Astro.props;
+const image = value.image as { id: string; alt?: string } | undefined;
+const hasImage = Boolean(image?.alt?.trim());
+const linkUrl = href(value.link_url);
+const linkLabel = str(value.link_label);
+---
+
+<section class="section">
+	<div class="wrap section__grid">
+		<div class="section__head">
+			<h2 class="h-section">{str(value.heading)}</h2>
+		</div>
+		<div class:list={["about-intro", { "about-intro--media": hasImage }]}>
+			<Photo image={image} class="photo--portrait" sizes="(min-width: 40rem) 14rem, 22rem" />
+			<div class="section__body">
+				<Prose value={value.body as never} shift />
+				{
+					linkUrl && linkLabel && (
+						<p>
+							<a class="arrow-link" href={linkUrl}>
+								{linkLabel}
+							</a>
+						</p>
+					)
+				}
+			</div>
+		</div>
+	</div>
+</section>

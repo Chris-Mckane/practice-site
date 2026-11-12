@@ -1,0 +1,34 @@
+---
+/** Experience: a ruled list of roles. */
+import { rows, str, type BlockProps } from "../../lib/blocks";
+import { paragraphs } from "../../lib/format";
+
+type Props = BlockProps;
+
+const { value } = Astro.props;
+const roles = rows(value.roles).filter((item) => str(item.role));
+---
+
+<section class="section">
+	<div class="wrap section__grid">
+		<div class="section__head">
+			<h2 class="h-section">{str(value.heading)}</h2>
+		</div>
+		<div class="section__body">
+			<div class="flow">{paragraphs(value.intro).map((text) => <p class="muted">{text}</p>)}</div>
+			{
+				roles.length > 0 && (
+					<ul class="timeline">
+						{roles.map((item) => (
+							<li>
+								<h3 class="h-item">{str(item.role)}</h3>
+								<p class="meta">{[str(item.organisation), str(item.period)].filter(Boolean).join(", ")}</p>
+								{str(item.summary) && <p class="muted">{str(item.summary)}</p>}
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+	</div>
+</section>

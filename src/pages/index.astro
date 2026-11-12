@@ -1,0 +1,26 @@
+---
+/** Homepage: renders the entry in the Pages collection whose slug is "home". */
+import { getEmDashEntry } from "emdash";
+import PageView from "../components/PageView.astro";
+import Base from "../layouts/Base.astro";
+import { getSite } from "../lib/site";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "home");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const site = await getSite(Astro);
+---
+
+{
+	page ? (
+		<PageView page={page} path="/" />
+	) : (
+		<Base path="/">
+			<div class="wrap" style="padding-block: var(--space-l)">
+				<h1 class="h-page">{site.name}</h1>
+				<p class="lead muted">
+					The homepage has no content yet. In the admin, publish a page with the slug “home”.
+				</p>
+			</div>
+		</Base>
+	)
+}

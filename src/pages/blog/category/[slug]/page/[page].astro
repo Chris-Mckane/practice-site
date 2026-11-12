@@ -1,0 +1,14 @@
+---
+/** Posts in one category, page 2 onwards: /blog/category/seo/page/2 */
+import { decodeSlug } from "emdash";
+import BlogListing from "../../../../../components/BlogListing.astro";
+
+const slug = decodeSlug(Astro.params.slug) ?? "";
+const page = Number(Astro.params.page);
+if (page === 1) {
+	Astro.cache?.set(false);
+	return Astro.redirect(`/blog/category/${slug}`, 301);
+}
+---
+
+<BlogListing page={page} category={slug} />

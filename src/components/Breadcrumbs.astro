@@ -1,0 +1,26 @@
+---
+/** Visible breadcrumb trail. The last item is the current page and is not a link. */
+import type { Crumb } from "../lib/jsonld";
+
+interface Props {
+	crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+---
+
+<nav class="crumbs meta" aria-label="Breadcrumb">
+	<ol>
+		{
+			crumbs.map((crumb, index) => (
+				<li>
+					{index < crumbs.length - 1 ? (
+						<a href={crumb.path}>{crumb.label}</a>
+					) : (
+						<span aria-current="page">{crumb.label}</span>
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>

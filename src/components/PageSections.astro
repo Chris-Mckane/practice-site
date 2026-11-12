@@ -1,0 +1,45 @@
+---
+/**
+ * Renders a page's sections (blocks) in the order the editor arranged them.
+ * Each block type in the admin maps to one component below.
+ */
+import "../styles/sections.css";
+import { Blocks } from "emdash/ui";
+import AboutIntro from "./blocks/AboutIntro.astro";
+import Approach from "./blocks/Approach.astro";
+import ContactCta from "./blocks/ContactCta.astro";
+import Credentials from "./blocks/Credentials.astro";
+import Experience from "./blocks/Experience.astro";
+import Hero from "./blocks/Hero.astro";
+import LatestPosts from "./blocks/LatestPosts.astro";
+import PageHeader from "./blocks/PageHeader.astro";
+import Profile from "./blocks/Profile.astro";
+import RichText from "./blocks/RichText.astro";
+import RouteLinks from "./blocks/RouteLinks.astro";
+import { H1_BLOCKS, type Block } from "../lib/blocks";
+
+interface Props {
+	blocks: Block[] | null | undefined;
+}
+
+const blocks = Astro.props.blocks ?? [];
+
+// Exactly one H1 per page: the first Hero, Profile or Page header block gets it.
+(Astro.locals as { h1Key?: string }).h1Key = blocks.find((block) => H1_BLOCKS.includes(block._type))?._key;
+
+const components = {
+	hero: Hero,
+	page_header: PageHeader,
+	about_intro: AboutIntro,
+	approach: Approach,
+	route_links: RouteLinks,
+	latest_posts: LatestPosts,
+	contact_cta: ContactCta,
+	profile: Profile,
+	experience: Experience,
+	credentials: Credentials,
+	rich_text: RichText,
+};
+---
+
+<Blocks value={blocks} components={components} />

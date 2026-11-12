@@ -1,0 +1,35 @@
+---
+/** About page opening: H1, lead paragraph, portrait photo and biography. */
+import { headingTag, str, type BlockProps } from "../../lib/blocks";
+import { paragraphs } from "../../lib/format";
+import Photo from "../Photo.astro";
+import Prose from "../Prose.astro";
+
+type Props = BlockProps;
+
+const { value, blockKey } = Astro.props;
+const Heading = headingTag(Astro, blockKey);
+const photo = value.photo as { id: string; alt?: string } | undefined;
+const hasPhoto = Boolean(photo?.alt?.trim());
+const caption = str(value.photo_caption);
+---
+
+<section class="page-header wrap">
+	<Heading class="h-hero">{str(value.headline)}</Heading>
+	{paragraphs(value.lead).map((text) => <p class="lead">{text}</p>)}
+</section>
+<section class="section">
+	<div class="wrap section__grid">
+		<figure class="section__head">
+			{
+				hasPhoto ? (
+					<Photo image={photo} class="photo--portrait" sizes="(min-width: 58rem) 22rem, min(22rem, 90vw)" priority />
+				) : (
+					<div class="photo photo--portrait photo--empty">Photo placeholder</div>
+				)
+			}
+			{caption && <figcaption class="caption meta">{caption}</figcaption>}
+		</figure>
+		<Prose value={value.body as never} class="section__body" />
+	</div>
+</section>

@@ -1,0 +1,30 @@
+---
+/**
+ * Renders an image from the media library through EmDash's image component:
+ * AVIF with a WebP fallback, responsive sizes, explicit width and height.
+ *
+ * Alt text is mandatory. EmDash has no "required alt" switch, so an image
+ * without alt text is simply not shown (and the editor sees it is missing).
+ */
+import { Image } from "emdash/ui";
+
+interface Props {
+	image: { id: string; alt?: string } | null | undefined;
+	/** CSS `sizes` hint: how wide the image is displayed at different screen widths. */
+	sizes: string;
+	/** True only for an image that is the largest thing in the first screen. */
+	priority?: boolean;
+	class?: string;
+}
+
+const { image, sizes, priority = false, class: className } = Astro.props;
+const hasAlt = Boolean(image?.alt?.trim());
+---
+
+{
+	image && hasAlt && (
+		<div class:list={["photo", className]}>
+			<Image image={image} sizes={sizes} priority={priority} formats={["avif", "webp"]} />
+		</div>
+	)
+}
