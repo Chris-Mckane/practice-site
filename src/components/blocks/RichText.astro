@@ -1,0 +1,17 @@
+---
+/** A general-purpose text section with an optional H2 heading. */
+import { str, type BlockProps } from "../../lib/blocks";
+import Prose from "../Prose.astro";
+
+type Props = BlockProps<"rich_text">;
+
+const { value } = Astro.props;
+const heading = str(value.heading);
+---
+
+<section class="section">
+	<div class="wrap section__grid">
+		<div class="section__head">{heading && <h2 class="h-section">{heading}</h2>}</div>
+		<Prose value={value.body} class="section__body" shift={Boolean(heading)} />
+	</div>
+</section>

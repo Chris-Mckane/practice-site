@@ -1,0 +1,22 @@
+node_modules
+dist
+.astro
+.emdash/migrations.json
+.emdash/schema.json
+uploads
+data.db
+data.db-*
+.wrangler
+
+# Environment / Wrangler secrets (never commit these)
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+# Verification tooling output
+tools/verify/node_modules
+tools/verify/out
+.DS_Store
+tools/local/media.json

@@ -1,0 +1,25 @@
+/* Blog index: category links and pagination. */
+
+.cats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 var(--space-s);
+	padding: 0;
+	list-style: none;
+}
+
+.cats a[aria-current="page"] {
+	color: var(--text);
+	text-decoration-thickness: 2px;
+}
+
+.pagination {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-s);
+	margin-top: var(--space-m);
+	padding-top: var(--space-m);
+	border-top: 1px solid var(--line);
+}

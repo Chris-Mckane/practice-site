@@ -1,0 +1,13 @@
+---
+/** Blog index, page 2 onwards: /blog/page/2 */
+import BlogListing from "../../../components/BlogListing.astro";
+
+const page = Number(Astro.params.page);
+// Page 1 lives at /blog: avoid a duplicate address.
+if (page === 1) {
+	Astro.cache?.set(false);
+	return Astro.redirect("/blog", 301);
+}
+---
+
+<BlogListing page={page} />

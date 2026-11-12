@@ -1,0 +1,41 @@
+---
+/** Signposts to the main destinations, optionally ending with the primary call to action. */
+import { str, type BlockProps } from "../../lib/blocks";
+import { href, paragraphs } from "../../lib/format";
+import { getSite } from "../../lib/site";
+
+type Props = BlockProps<"route_links">;
+
+const { value } = Astro.props;
+const site = await getSite(Astro);
+const routes = (value.routes ?? [])
+	.map((item) => ({ label: str(item.label), text: str(item.description), url: href(item.url) }))
+	.filter((item) => item.label && item.url);
+if (value.include_primary_cta !== false && site.cta && !routes.some((item) => item.url === site.cta?.url)) {
+	routes.push({ label: site.cta.label, text: site.status, url: site.cta.url });
+}
+---
+
+<section class="section">
+	<div class="wrap section__grid">
+		<div class="section__head">
+			<h2 class="h-section">{str(value.heading)}</h2>
+			{paragraphs(value.intro).map((text) => <p class="muted">{text}</p>)}
+		</div>
+		<ul class="routes">
+			{
+				routes.map((item) => (
+					<li>
+						<a class="route" href={item.url}>
+							<span class="route__label">{item.label}</span>
+							{item.text && <span class="route__text">{item.text}</span>}
+							<span class="route__arrow" aria-hidden="true">
+								&rarr;
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

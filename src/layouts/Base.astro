@@ -1,0 +1,101 @@
+---
+/**
+ * The page shell used by every public page: <head> tags, skip link, header, main and footer.
+ *
+ * SEO tags (description, canonical, Open Graph, Twitter, robots) are rendered by EmDash's
+ * <EmDashHead>, which also applies each entry's SEO panel and the staging "noindex" switch.
+ */
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import { createPublicPageContext } from "emdash/page";
+import { EmDashBodyEnd, EmDashBodyStart, EmDashHead } from "emdash/ui";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { graph, personNode, websiteNode } from "../lib/jsonld";
+import { absoluteUrl, getSite, pageTitle } from "../lib/site";
+
+interface Props {
+	/** Page title without the site name. */
+	title?: string | null;
+	/** Complete browser-tab title, used as written (the homepage uses this). */
+	fullTitle?: string | null;
+	/** Title for social sharing and structured data, when different from `title`. */
+	shareTitle?: string | null;
+	description?: string | null;
+	/** Site-relative path of this page, e.g. "/blog". Used for the canonical URL. */
+	path: string;
+	/** Absolute canonical URL, when an entry's SEO panel overrides the default. */
+	canonical?: string | null;
+	/** Absolute URL of the social sharing image. */
+	image?: string | null;
+	/** Set to "noindex, follow" for pages that should stay out of search results. */
+	robots?: string | null;
+	/** The EmDash entry this page renders, so its SEO panel is applied. */
+	content?: { collection: string; id: string; slug?: string | null };
+	article?: { publishedTime?: string | null; modifiedTime?: string | null };
+	/** Extra structured data nodes for this page (breadcrumbs, article details). */
+	jsonld?: Record<string, unknown>[];
+}
+
+const { title, shareTitle, description, path, canonical, image, robots, content, article, jsonld = [] } = Astro.props;
+const site = await getSite(Astro);
+const fullTitle = Astro.props.fullTitle || pageTitle(site, title);
+
+const page = createPublicPageContext({
+	Astro,
+	kind: content ? "content" : "custom",
+	pageType: article ? "article" : "website",
+	title: fullTitle,
+	pageTitle: shareTitle ?? title ?? site.name,
+	description: description ?? null,
+	canonical: canonical ?? absoluteUrl(site, path),
+	image,
+	content,
+	seo: robots || site.staging ? { robots: site.staging ? "noindex, nofollow" : robots } : undefined,
+	articleMeta: article,
+	siteUrl: site.url,
+});
+
+// Browsers re-check each page with the server instead of reusing an old copy. The check is
+// answered from Cloudflare's edge cache, so it is fast, and visitors never see stale pages.
+if (!Astro.response.headers.has("Cache-Control")) Astro.response.headers.set("Cache-Control", "no-cache");
+
+const structuredData = JSON.stringify(graph([websiteNode(site), personNode(site), ...jsonld])).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		<script is:inline>
+			(function (d) {
+				d.classList.add("js");
+				try {
+					if (localStorage.getItem("theme") === "light") d.dataset.theme = "light";
+				} catch (e) {}
+			})(document.documentElement);
+		</script>
+		<Font cssVariable="--font-heading" preload />
+		<Font cssVariable="--font-body" preload={[{ style: "normal" }]} />
+		<meta name="color-scheme" content="dark light" />
+		<meta name="theme-color" content="#050A18" />
+		<meta property="og:site_name" content={site.name} />
+		<meta property="og:locale" content="en_GB" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="alternate" type="application/rss+xml" title={site.name} href="/rss.xml" />
+		<EmDashHead page={page} />
+		<script type="application/ld+json" is:inline set:html={structuredData} />
+	</head>
+	<body>
+		<EmDashBodyStart page={page} />
+		<a class="skip" href="#main">Skip to main content</a>
+		<Header />
+		<main id="main" tabindex="-1">
+			<slot />
+		</main>
+		<Footer />
+		<EmDashBodyEnd page={page} />
+	</body>
+</html>

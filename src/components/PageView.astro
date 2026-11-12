@@ -1,0 +1,88 @@
+---
+/**
+ * Renders one entry from the Pages collection inside the site shell.
+ * Used by the homepage (the page with the slug "home") and by /[slug] for every other page.
+ */
+import type { ContentEntry } from "emdash";
+import type { Page } from "../../emdash-env";
+import Base from "../layouts/Base.astro";
+import { findBlock, H1_BLOCKS, str, type Block } from "../lib/blocks";
+import { breadcrumbNode, personId, websiteId } from "../lib/jsonld";
+import { entrySeo, mediaUrl } from "../lib/seo";
+import { absoluteUrl, getSite } from "../lib/site";
+import PageSections from "./PageSections.astro";
+
+interface Props {
+	page: ContentEntry<Page>;
+	/** Site-relative path this page is served at. */
+	path: string;
+}
+
+const { page, path } = Astro.props;
+const site = await getSite(Astro);
+const isHome = path === "/";
+const blocks: Block[] = page.data.layout ?? [];
+const opening = blocks.find((block) => H1_BLOCKS.includes(block._type));
+const profile = findBlock(blocks, "profile");
+const photo = profile?.photo ?? findBlock(blocks, "about_intro")?.image;
+// Default meta description: the introduction under the page's H1.
+const intro = opening?._type === "hero" ? opening.intro : opening?._type === "profile" || opening?._type === "page_header" ? opening.lead : null;
+
+const seo = entrySeo(site, page, path, {
+	description: str(intro) || site.tagline,
+	image: mediaUrl(site, photo),
+});
+const url = seo.canonical ?? absoluteUrl(site, path);
+
+// A page with a Profile section describes the person behind the site.
+const jsonld: Record<string, unknown>[] = [
+	{
+		"@type": profile ? "ProfilePage" : "WebPage",
+		"@id": `${url}#webpage`,
+		url,
+		name: seo.title,
+		...(seo.description ? { description: seo.description } : {}),
+		inLanguage: "en-GB",
+		isPartOf: { "@id": websiteId(site) },
+		...(profile || isHome ? { [profile ? "mainEntity" : "about"]: { "@id": personId(site) } } : {}),
+		dateModified: page.data.updatedAt.toISOString(),
+	},
+];
+if (profile) {
+	jsonld.push({
+		"@type": "Person",
+		"@id": personId(site),
+		...(seo.description ? { description: seo.description } : {}),
+		...(seo.image ? { image: seo.image } : {}),
+		mainEntityOfPage: { "@id": `${url}#webpage` },
+	});
+}
+if (!isHome) {
+	jsonld.push(
+		breadcrumbNode(site, [
+			{ label: "Home", path: "/" },
+			{ label: page.data.title, path },
+		]),
+	);
+}
+---
+
+<Base
+	title={seo.title}
+	fullTitle={isHome ? seo.title : undefined}
+	description={seo.description}
+	path={path}
+	canonical={seo.canonical}
+	image={seo.image}
+	content={{ collection: "pages", id: page.data.id, slug: page.id }}
+	jsonld={jsonld}
+>
+	{
+		!opening && (
+			<header class="page-header wrap">
+				<h1 class="h-page">{page.data.title}</h1>
+			</header>
+		)
+	}
+	<PageSections blocks={blocks} />
+</Base>

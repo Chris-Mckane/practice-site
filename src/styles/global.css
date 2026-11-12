@@ -1,0 +1,524 @@
+/*
+ * Global styles: design tokens, base typography, layout, header, footer, links and buttons.
+ * Loaded on every page and inlined into the HTML at build time.
+ *
+ * To restyle the site, start with the custom properties below.
+ * Fonts are set by Astro (see astro.config.mjs) as --font-heading and --font-body.
+ */
+
+/* ---------- Design tokens ---------- */
+
+:root {
+	color-scheme: dark;
+
+	/* Palette "ink and mint" (dark, the default). Mint is an accent only. */
+	--bg: #050a18;
+	--text: #fff;
+	--muted: #d0d8ee;
+	--accent: #5cf2c0;
+	--surface: #0e1832;
+	--line: #2a3556;
+
+	/* Primary button: gradient stops, text colour and the soft sweep behind the text. */
+	--btn-a: #5cf2c0;
+	--btn-b: #a9f9e0;
+	--btn-text: #050a18;
+	--btn-sweep: rgb(255 255 255 / 0.4);
+
+	/* Fluid type scale: sizes grow smoothly between small and large screens. */
+	--step--1: clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem);
+	--step-0: clamp(1.0625rem, 1.02rem + 0.22vw, 1.1875rem);
+	--step-1: clamp(1.25rem, 1.17rem + 0.4vw, 1.5rem);
+	--step-2: clamp(1.5rem, 1.32rem + 0.9vw, 2.125rem);
+	--step-3: clamp(1.875rem, 1.5rem + 1.9vw, 3rem);
+	--step-4: clamp(2.375rem, 1.6rem + 3.9vw, 4.75rem);
+
+	/* Fluid spacing scale. */
+	--space-xs: 0.5rem;
+	--space-s: clamp(0.875rem, 0.8rem + 0.4vw, 1.125rem);
+	--space-m: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+	--space-l: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
+	--space-xl: clamp(3.5rem, 2.4rem + 5.5vw, 7.5rem);
+
+	--gutter: clamp(1.25rem, 0.6rem + 3.2vw, 3rem);
+	--measure: 64ch;
+	--radius: 999px;
+	--ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:root[data-theme="light"] {
+	color-scheme: light;
+	--bg: #f3f2ec;
+	--text: #050a18;
+	--muted: #222c4a;
+	--accent: #004d38;
+	--surface: #e7e5dc;
+	--line: #b9b6aa;
+	--btn-a: #004d38;
+	--btn-b: #00402e;
+	--btn-text: #f3f2ec;
+	--btn-sweep: rgb(255 255 255 / 0.07);
+}
+
+/* ---------- Base ---------- */
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	scroll-padding-top: var(--space-m);
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--font-body);
+	font-size: var(--step-0);
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	font-family: var(--font-heading);
+	font-weight: 700;
+	line-height: 1.08;
+	letter-spacing: -0.022em;
+	text-wrap: balance;
+}
+
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+	margin: 0;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+sub {
+	line-height: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--bg);
+}
+
+/* Visible keyboard focus everywhere: 3px, high contrast, offset from the element. */
+:focus-visible {
+	outline: 3px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+/* ---------- Links ---------- */
+
+a {
+	color: var(--accent);
+	text-decoration-line: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+	transition:
+		color 0.2s var(--ease),
+		text-decoration-thickness 0.2s var(--ease),
+		text-underline-offset 0.2s var(--ease);
+}
+
+a:hover {
+	color: var(--text);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.3em;
+}
+
+/* ---------- Helpers ---------- */
+
+.wrap {
+	width: min(100% - 2 * var(--gutter), 74rem);
+	margin-inline: auto;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.muted {
+	color: var(--muted);
+}
+
+.meta {
+	color: var(--muted);
+	font-family: var(--font-heading);
+	font-size: var(--step--1);
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+.h-hero {
+	font-size: var(--step-4);
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -0.035em;
+}
+
+.h-page {
+	font-size: var(--step-3);
+	letter-spacing: -0.03em;
+}
+
+.h-section {
+	font-size: var(--step-2);
+}
+
+.h-item {
+	font-size: var(--step-1);
+	line-height: 1.2;
+	letter-spacing: -0.012em;
+}
+
+.lead {
+	max-width: 46ch;
+	font-size: var(--step-1);
+	line-height: 1.5;
+}
+
+.flow > * + * {
+	margin-top: 1em;
+}
+
+/* Framed image from the media library. */
+.photo {
+	overflow: hidden;
+	border-radius: 0.75rem;
+	background: var(--surface);
+}
+
+.photo img {
+	width: 100%;
+}
+
+/* ---------- Skip link ---------- */
+
+.skip {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	z-index: 10;
+	padding: 0.75rem 1.25rem;
+	border-radius: var(--radius);
+	background: var(--text);
+	color: var(--bg);
+	font-family: var(--font-heading);
+	font-weight: 600;
+	transform: translateY(-200%);
+}
+
+.skip:focus {
+	color: var(--bg);
+	transform: none;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0 var(--space-s);
+	padding-block: var(--space-s);
+}
+
+.brand {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	color: var(--text);
+	font-family: var(--font-heading);
+	font-size: var(--step-0);
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	text-decoration: none;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	gap: clamp(0.25rem, 1.5vw, 1rem);
+}
+
+.nav ul {
+	display: flex;
+	gap: clamp(0rem, 1vw, 0.75rem);
+	padding: 0;
+	list-style: none;
+}
+
+.nav a:not(.btn) {
+	display: inline-flex;
+	align-items: center;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding-inline: 0.5rem;
+	color: var(--text);
+	font-family: var(--font-heading);
+	font-size: var(--step--1);
+	font-weight: 600;
+	text-decoration-color: transparent;
+}
+
+.nav a:not(.btn):hover,
+.nav a[aria-current="page"] {
+	text-decoration-color: var(--accent);
+	text-decoration-thickness: 2px;
+}
+
+.nav .btn {
+	display: none;
+}
+
+@media (min-width: 44rem) {
+	.nav .btn {
+		display: inline-flex;
+	}
+}
+
+/* ---------- Theme switch ---------- */
+
+.theme {
+	display: none;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--text);
+	cursor: pointer;
+}
+
+.js .theme {
+	display: inline-grid;
+}
+
+.theme__track {
+	display: block;
+	width: 2.5rem;
+	height: 1.375rem;
+	padding: 2px;
+	border: 2px solid currentColor;
+	border-radius: var(--radius);
+}
+
+.theme__knob {
+	display: block;
+	width: 0.875rem;
+	height: 0.875rem;
+	border-radius: 50%;
+	background: var(--accent);
+	transition: transform 0.25s var(--ease);
+}
+
+.theme[aria-checked="true"] .theme__knob {
+	transform: translateX(1.125rem);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0.7rem 1.5rem;
+	overflow: hidden;
+	border-radius: var(--radius);
+	background: linear-gradient(100deg, var(--btn-a), var(--btn-b) 50%, var(--btn-a)) 0 0 / 200% 100%;
+	color: var(--btn-text);
+	font-family: var(--font-heading);
+	font-size: var(--step--1);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: 0;
+	text-align: center;
+	text-decoration: none;
+	isolation: isolate;
+	transition:
+		background-position 0.7s var(--ease),
+		transform 0.25s var(--ease),
+		box-shadow 0.25s var(--ease);
+}
+
+/* The soft light sweep that travels behind the label. */
+.btn::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(100deg, transparent 30%, var(--btn-sweep) 50%, transparent 70%);
+	transform: translateX(-100%);
+	transition: transform 0.7s var(--ease);
+}
+
+.btn:hover,
+.btn:focus-visible {
+	background-position: 100% 0;
+	color: var(--btn-text);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+	transform: translateX(100%);
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 0.5rem 1.25rem -0.5rem rgb(0 0 0 / 0.45);
+}
+
+.btn:focus-visible {
+	border-radius: var(--radius);
+}
+
+.btn--lg {
+	min-height: 3.25rem;
+	padding-inline: 1.9rem;
+	font-size: var(--step-0);
+}
+
+/* Stand-alone links (menus, lists of links): heading font and a 44px tall touch target. */
+.link,
+.arrow-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	font-family: var(--font-heading);
+	font-size: var(--step--1);
+	font-weight: 600;
+}
+
+/* A link with an arrow that nudges forward on hover. */
+
+.arrow-link::after {
+	content: "\2192";
+	display: inline-block;
+	transition: transform 0.25s var(--ease);
+}
+
+.arrow-link:hover::after {
+	transform: translateX(0.25em);
+}
+
+/* ---------- Sections (the "ledger" layout: heading left, content right) ---------- */
+
+.section {
+	padding-block: var(--space-l);
+	border-top: 1px solid var(--line);
+}
+
+.section__grid {
+	display: grid;
+	gap: var(--space-m);
+}
+
+.section__body {
+	max-width: var(--measure);
+}
+
+@media (min-width: 58rem) {
+	.section__grid {
+		grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+		gap: var(--space-l);
+	}
+
+	.section__head {
+		position: sticky;
+		top: var(--space-m);
+		align-self: start;
+	}
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+	margin-top: var(--space-l);
+	padding-block: var(--space-l) var(--space-m);
+	border-top: 1px solid var(--line);
+	color: var(--muted);
+	font-size: var(--step--1);
+}
+
+.site-footer__grid {
+	display: grid;
+	gap: var(--space-m);
+}
+
+@media (min-width: 44rem) {
+	.site-footer__grid {
+		grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+	}
+}
+
+.site-footer ul {
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer__legal {
+	margin-top: var(--space-m);
+}
+
+/* ---------- Motion preferences ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	/* A gentle cross-fade between pages in browsers that support it. No JavaScript. */
+	@view-transition {
+		navigation: auto;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		animation: none !important;
+		transition: none !important;
+		scroll-behavior: auto !important;
+	}
+
+	.btn:hover,
+	.arrow-link:hover::after {
+		transform: none;
+	}
+
+	.btn::before {
+		display: none;
+	}
+}

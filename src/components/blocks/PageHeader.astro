@@ -1,0 +1,15 @@
+---
+/** A simple page opening: H1 and an optional lead paragraph. */
+import { headingTag, str, type BlockProps } from "../../lib/blocks";
+import { paragraphs } from "../../lib/format";
+
+type Props = BlockProps<"page_header">;
+
+const { value, blockKey } = Astro.props;
+const Heading = headingTag(Astro, blockKey);
+---
+
+<header class="page-header wrap">
+	<Heading class="h-page">{str(value.headline)}</Heading>
+	{paragraphs(value.lead).map((text) => <p class="lead muted">{text}</p>)}
+</header>

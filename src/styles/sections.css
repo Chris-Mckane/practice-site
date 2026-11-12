@@ -1,0 +1,270 @@
+/*
+ * Styles for the page sections (blocks) used on the homepage, the About page
+ * and any page built from blocks in the admin.
+ */
+
+/* ---------- Hero ---------- */
+
+.hero {
+	display: grid;
+	gap: var(--space-l);
+	padding-block: var(--space-l) var(--space-xl);
+}
+
+/* Wide screens: introduction on the left, live performance badge on the right. */
+@media (min-width: 62rem) {
+	.hero {
+		grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+		align-items: end;
+	}
+}
+
+.hero .h-hero {
+	max-width: 13ch;
+}
+
+.hero .lead {
+	margin-top: var(--space-m);
+}
+
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-xs) var(--space-m);
+	margin-top: var(--space-m);
+}
+
+/* Availability status: plain text with a small mint marker, deliberately not a badge. */
+.status {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	margin-top: var(--space-s);
+}
+
+.status::before {
+	content: "";
+	flex: none;
+	width: 0.55em;
+	height: 0.55em;
+	border-radius: 50%;
+	background: var(--accent);
+}
+
+/* ---------- Page header (simple H1 + lead) ---------- */
+
+.page-header {
+	padding-block: var(--space-l);
+}
+
+.page-header .lead {
+	margin-top: var(--space-s);
+}
+
+/* ---------- Media ---------- */
+
+.photo--portrait {
+	aspect-ratio: 4 / 5;
+	max-width: 22rem;
+}
+
+.photo--portrait img {
+	height: 100%;
+	object-fit: cover;
+}
+
+.caption {
+	margin-top: var(--space-xs);
+}
+
+/* Neutral stand-in shown when a photo has not been added yet. */
+.photo--empty {
+	display: grid;
+	place-items: center;
+	padding: var(--space-s);
+	border: 1px dashed var(--muted);
+	color: var(--muted);
+	font-family: var(--font-heading);
+	font-size: var(--step--1);
+	text-align: center;
+}
+
+/* ---------- About intro ---------- */
+
+.about-intro {
+	display: grid;
+	gap: var(--space-m);
+}
+
+@media (min-width: 40rem) {
+	.about-intro--media {
+		grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+		align-items: start;
+	}
+}
+
+/* ---------- Approach: principles as a ruled list, not cards ---------- */
+
+.principles {
+	display: grid;
+	gap: 0 var(--space-m);
+	margin-top: var(--space-m);
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 40rem) {
+	.principles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.principles li {
+	padding-block: var(--space-s);
+	border-top: 1px solid var(--line);
+}
+
+.principles p {
+	margin-top: 0.4em;
+	color: var(--muted);
+}
+
+/* ---------- Route links: large, obvious signposts ---------- */
+
+.routes {
+	padding: 0;
+	list-style: none;
+}
+
+.routes li {
+	border-bottom: 1px solid var(--line);
+}
+
+.routes li:first-child {
+	border-top: 1px solid var(--line);
+}
+
+.route {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 0 var(--space-s);
+	padding-block: var(--space-s);
+	color: var(--text);
+	text-decoration: none;
+}
+
+.route__label {
+	font-family: var(--font-heading);
+	font-size: var(--step-2);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.022em;
+	text-decoration: underline transparent 2px;
+	text-underline-offset: 0.18em;
+	transition: text-decoration-color 0.2s var(--ease);
+}
+
+.route__text {
+	grid-column: 1;
+	color: var(--muted);
+}
+
+.route__arrow {
+	grid-row: 1 / span 2;
+	grid-column: 2;
+	color: var(--accent);
+	font-family: var(--font-heading);
+	font-size: var(--step-2);
+	transition: transform 0.25s var(--ease);
+}
+
+.route:hover .route__label {
+	text-decoration-color: var(--accent);
+}
+
+.route:hover .route__arrow {
+	transform: translateX(0.3em);
+}
+
+/* ---------- Experience and credentials ---------- */
+
+.section__body > .flow:not(:empty) {
+	margin-bottom: var(--space-m);
+}
+
+.timeline {
+	padding: 0;
+	list-style: none;
+}
+
+.timeline li {
+	padding-block: var(--space-s);
+	border-top: 1px solid var(--line);
+}
+
+.timeline p {
+	margin-top: 0.4em;
+}
+
+.credentials {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: start;
+}
+
+.credentials caption {
+	text-align: start;
+}
+
+.credentials th,
+.credentials td {
+	padding: var(--space-s) var(--space-s) var(--space-s) 0;
+	border-top: 1px solid var(--line);
+	text-align: start;
+	vertical-align: top;
+}
+
+.credentials thead th {
+	border: 0;
+	padding-block: 0 var(--space-xs);
+}
+
+.credentials tbody th {
+	font-family: var(--font-heading);
+	font-weight: 700;
+}
+
+/* ---------- Contact ---------- */
+
+.contact {
+	padding-block: var(--space-xl);
+	border-top: 1px solid var(--line);
+}
+
+.contact .lead {
+	margin-block: var(--space-s) var(--space-m);
+	color: var(--muted);
+}
+
+.contact__links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-xs) var(--space-m);
+}
+
+.contact__links ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 var(--space-s);
+	padding: 0;
+	list-style: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.route:hover .route__arrow {
+		transform: none;
+	}
+}

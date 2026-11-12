@@ -1,0 +1,36 @@
+---
+/**
+ * Renders rich text from the editor.
+ *
+ * Headings are kept to H2 and H3 so every page has exactly one H1 and no skipped levels:
+ * a Heading 1 in the editor becomes an H2, and Heading 4 to 6 become H3.
+ * When `shift` is set (rich text that sits under an H2 section heading), H2 becomes H3.
+ */
+import "../styles/prose.css";
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+
+interface Props {
+	value: PortableTextBlock[] | null | undefined;
+	shift?: boolean;
+	class?: string;
+}
+
+const { value, shift = false, class: className } = Astro.props;
+const levels: Record<string, string> = shift
+	? { h1: "h3", h2: "h3", h4: "h3", h5: "h3", h6: "h3" }
+	: { h1: "h2", h4: "h3", h5: "h3", h6: "h3" };
+const blocks = (value ?? []).map((block) =>
+	block._type === "block" && typeof block.style === "string" && levels[block.style]
+		? { ...block, style: levels[block.style] }
+		: block,
+);
+---
+
+{
+	blocks.length > 0 && (
+		<div class:list={["prose", className]}>
+			<PortableText value={blocks} />
+		</div>
+	)
+}

@@ -1,0 +1,7 @@
+---
+/** Posts in one category, first page: /blog/category/seo */
+import { decodeSlug } from "emdash";
+import BlogListing from "../../../../components/BlogListing.astro";
+---
+
+<BlogListing page={1} category={decodeSlug(Astro.params.slug) ?? ""} />

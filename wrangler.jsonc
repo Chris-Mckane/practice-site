@@ -1,0 +1,40 @@
+{
+	// Cloudflare Worker settings. Chris: you should never need to edit this file by hand.
+	"$schema": "node_modules/wrangler/config-schema.json",
+
+	// Must match the Worker's name in the Cloudflare dashboard (and the GitHub repository name),
+	// otherwise Cloudflare's automatic builds refuse to deploy.
+	"name": "practice-site",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": ["nodejs_compat"],
+
+	// D1 = the database (all content, settings, users). Created automatically on the first deploy.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "practice-site",
+		},
+	],
+
+	// R2 = file storage for uploaded images. Created automatically on the first deploy.
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "practice-site-media",
+		},
+	],
+
+	// KV (the "SESSION" namespace used for admin logins) and the edge cache switch are added
+	// to the deployed configuration automatically by the Astro Cloudflare adapter at build time.
+
+	// Runs once a minute so scheduled posts publish on time and EmDash can do housekeeping.
+	"triggers": {
+		"crons": ["* * * * *"],
+	},
+
+	// Keeps logs in the Cloudflare dashboard so problems can be diagnosed without a command line.
+	"observability": {
+		"enabled": true,
+	},
+}

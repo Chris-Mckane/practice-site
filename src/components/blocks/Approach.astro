@@ -1,0 +1,35 @@
+---
+/** The approach section: heading, introduction and a ruled list of principles. */
+import { str, type BlockProps } from "../../lib/blocks";
+import { paragraphs } from "../../lib/format";
+
+type Props = BlockProps<"approach">;
+
+const { value } = Astro.props;
+const principles = (value.principles ?? []).filter((item) => str(item.title));
+---
+
+<section class="section">
+	<div class="wrap section__grid">
+		<div class="section__head">
+			<h2 class="h-section">{str(value.heading)}</h2>
+		</div>
+		<div>
+			<div class="section__body flow">
+				{paragraphs(value.intro).map((text) => <p class="lead">{text}</p>)}
+			</div>
+			{
+				principles.length > 0 && (
+					<ul class="principles">
+						{principles.map((item) => (
+							<li>
+								<h3 class="h-item">{str(item.title)}</h3>
+								{str(item.description) && <p>{str(item.description)}</p>}
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+	</div>
+</section>

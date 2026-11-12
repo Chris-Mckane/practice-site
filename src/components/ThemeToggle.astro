@@ -1,0 +1,31 @@
+---
+/**
+ * Light / dark theme switch. Dark is the default; the choice is remembered in the browser.
+ * The switch only appears when JavaScript is available (the <html> element gets a "js" class).
+ */
+---
+
+<button class="theme" id="theme" type="button" role="switch" aria-checked="false" aria-label="Light theme">
+	<span class="theme__track"><span class="theme__knob"></span></span>
+</button>
+<script is:inline>
+	(function () {
+		var b = document.getElementById("theme"),
+			r = document.documentElement,
+			m = document.querySelector('meta[name="theme-color"]');
+		function show(light) {
+			b.setAttribute("aria-checked", light);
+			m.content = light ? "#F3F2EC" : "#050A18";
+		}
+		show(r.dataset.theme === "light");
+		b.onclick = function () {
+			var light = r.dataset.theme !== "light";
+			if (light) r.dataset.theme = "light";
+			else delete r.dataset.theme;
+			try {
+				localStorage.setItem("theme", light ? "light" : "dark");
+			} catch (e) {}
+			show(light);
+		};
+	})();
+</script>

@@ -1,0 +1,61 @@
+/* Single blog post: header, byline, featured image and author box. */
+
+.post__header {
+	padding-block: var(--space-s) var(--space-m);
+}
+
+.post__header .h-page {
+	max-width: 22ch;
+}
+
+.post__header .lead {
+	margin-top: var(--space-s);
+	color: var(--muted);
+}
+
+.byline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1.25em;
+	margin-top: var(--space-s);
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 58rem) {
+	.byline {
+		flex-direction: column;
+		gap: 0.35em;
+	}
+}
+
+.post__image {
+	margin-bottom: var(--space-m);
+	aspect-ratio: 16 / 9;
+}
+
+.post__image img {
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ---------- Author box ---------- */
+
+.author {
+	max-width: var(--measure);
+	margin-top: var(--space-l);
+	padding: var(--space-m);
+	border-radius: 0.75rem;
+	background: var(--surface);
+}
+
+.author p {
+	margin-block: 0.5em;
+	color: var(--muted);
+}
+
+.author__links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 var(--space-m);
+}

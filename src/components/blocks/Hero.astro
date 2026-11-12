@@ -1,0 +1,45 @@
+---
+/** Homepage introduction: H1, intro, primary button, secondary link, status line and proof badge. */
+import { headingTag, str, type BlockProps } from "../../lib/blocks";
+import { href, paragraphs } from "../../lib/format";
+import { getSite } from "../../lib/site";
+import ProofBadge from "../ProofBadge.astro";
+
+type Props = BlockProps<"hero">;
+
+const { value, blockKey } = Astro.props;
+const site = await getSite(Astro);
+const Heading = headingTag(Astro, blockKey);
+const secondaryUrl = href(value.secondary_url);
+const secondaryLabel = str(value.secondary_label);
+const showCta = value.show_primary_cta !== false && site.cta;
+---
+
+<section class="hero wrap">
+	<div>
+		<Heading class="h-hero">{str(value.headline)}</Heading>
+		{paragraphs(value.intro).map((text) => <p class="lead">{text}</p>)}
+		{
+			(showCta || (secondaryUrl && secondaryLabel)) && (
+				<div class="hero__actions">
+					{showCta && site.cta && (
+						<a class="btn btn--lg" href={site.cta.url}>
+							{site.cta.label}
+						</a>
+					)}
+					{secondaryUrl && secondaryLabel && (
+						<a class="arrow-link" href={secondaryUrl}>
+							{secondaryLabel}
+						</a>
+					)}
+				</div>
+			)
+		}
+		{value.show_status !== false && site.status && <p class="status meta">{site.status}</p>}
+	</div>
+	{
+		value.show_proof_badge !== false && (
+			<ProofBadge methodologyLabel={str(value.methodology_label)} methodologyUrl={href(value.methodology_url)} />
+		)
+	}
+</section>

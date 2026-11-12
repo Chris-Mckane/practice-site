@@ -1,0 +1,37 @@
+{
+  "name": "practice-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal brand site for Chris McKane. EmDash CMS on Astro, hosted on Cloudflare Workers.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "emdash": {
+    "label": "Chris McKane",
+    "seed": "seed/seed.json"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && wrangler deploy",
+    "typecheck": "astro check",
+    "check:contrast": "node scripts/contrast.mjs",
+    "check:seed": "emdash seed seed/seed.json --validate"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.4.7",
+    "@astrojs/react": "7.1.8",
+    "@emdash-cms/cloudflare": "1.5.0",
+    "astro": "7.4.11",
+    "emdash": "1.5.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@cloudflare/workers-types": "5.20261110.1",
+    "wrangler": "4.160.1"
+  }
+}

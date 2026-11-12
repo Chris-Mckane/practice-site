@@ -1,0 +1,27 @@
+---
+/** "About the author" box under each post: who wrote it, a short bio and where to learn more. */
+import { getSite } from "../lib/site";
+
+interface Props {
+	name: string;
+	bio?: string | null;
+}
+
+const { name, bio } = Astro.props;
+const site = await getSite(Astro);
+---
+
+<aside class="author" aria-labelledby="author-heading">
+	<h2 class="h-item" id="author-heading">About the author: {name}</h2>
+	{bio && <p>{bio}</p>}
+	<p class="author__links">
+		<a class="arrow-link" href="/about">More about {name}</a>
+		{
+			site.cta && site.cta.url !== "/blog" && (
+				<a class="arrow-link" href={site.cta.url}>
+					{site.cta.label}
+				</a>
+			)
+		}
+	</p>
+</aside>

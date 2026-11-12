@@ -1,0 +1,40 @@
+---
+/** The most recent blog posts, fetched automatically. */
+import { getEmDashCollection } from "emdash";
+import { str, type BlockProps } from "../../lib/blocks";
+import { href } from "../../lib/format";
+import PostList from "../PostList.astro";
+
+type Props = BlockProps<"latest_posts">;
+
+const { value } = Astro.props;
+const count = Math.min(6, Math.max(1, Number(value.count) || 3));
+const { entries, cacheHint } = await getEmDashCollection("posts", {
+	status: "published",
+	limit: count,
+	orderBy: { published_at: "desc" },
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const linkUrl = href(value.link_url);
+const linkLabel = str(value.link_label);
+---
+
+{
+	entries.length > 0 && (
+		<section class="section">
+			<div class="wrap section__grid">
+				<div class="section__head">
+					<h2 class="h-section">{str(value.heading)}</h2>
+					{linkUrl && linkLabel && (
+						<p>
+							<a class="arrow-link" href={linkUrl}>
+								{linkLabel}
+							</a>
+						</p>
+					)}
+				</div>
+				<PostList posts={entries} heading="h3" />
+			</div>
+		</section>
+	)
+}

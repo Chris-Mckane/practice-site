@@ -1,0 +1,34 @@
+/*
+ * The live performance badge in the hero.
+ * Its size is fixed in advance so filling in the numbers after the page has loaded
+ * cannot move anything (zero layout shift).
+ */
+
+.proof {
+	max-width: 30rem;
+	padding-block: var(--space-s);
+	border-block: 1px solid var(--line);
+}
+
+.proof dl {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-s);
+	margin-block: var(--space-s);
+}
+
+.proof dd {
+	height: 1.2em;
+	overflow: hidden;
+	color: var(--accent);
+	font-family: var(--font-heading);
+	font-size: var(--step-2);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	white-space: nowrap;
+}
+
+.proof abbr {
+	text-decoration: none;
+}
